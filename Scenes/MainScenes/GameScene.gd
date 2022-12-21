@@ -14,14 +14,11 @@ var current_wave = 0
 var enemies_in_wave = 0
 
 var base_health = 100
-
-var WAVE_DATA = [
-	[["BlueTank", 1.0], ["RedTank", 2.0]],
-	[["BlueTank", 1.0], ["BlueTank", 2.0]],
-	]
+var WAVE_DATA
 
 
 func _ready():
+	WAVE_DATA = WaveData.WAVE_DATA
 	map_node = get_node("Map1")  ## Turn this into variable based on selected map
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
@@ -60,27 +57,24 @@ func update_tower_preview():
 ##
 func start_next_wave():
 	var wave_data = retrieve_wave_data()
-	yield(get_tree().create_timer(0.2), "timeout")  ## Padding between waves
 	spawn_enemies(wave_data)
 
 
 func retrieve_wave_data():
-	print(current_wave)
 	var wave_data = WAVE_DATA[current_wave]
 	current_wave += 1
-	print(current_wave)
 	enemies_in_wave = wave_data.size()
-	print(wave_data)
 	return wave_data
 
 
 func spawn_enemies(wave_data):
-	for i in wave_data:
-		var new_enemy = load("res://Scenes/Enemies/" + i[0] + ".tscn").instance()
+	for enemy_data in wave_data:
+		var new_enemy = load("res://Scenes/Enemies/" + enemy_data[0] + ".tscn").instance()
 		new_enemy.connect("base_damage", self, "on_base_damage")
 		map_node.get_node("Path").add_child(new_enemy, true)
-		yield(get_tree().create_timer(i[1]), "timeout")
+		yield(get_tree().create_timer(enemy_data[1]), "timeout")
 	if current_wave < WAVE_DATA.size():
+		yield(get_tree().create_timer(2.0), "timeout")  ## Padding between waves
 		start_next_wave()
 
 
