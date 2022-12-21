@@ -9,7 +9,7 @@ var tower_data = {
 		},
 	"MissileT1": {
 		"damage": 100,
-		"rof": 3,
+		"rof": 3.0,
 		"range": 550,
 		"category": "Missile",
 		},

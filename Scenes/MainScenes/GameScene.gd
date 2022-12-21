@@ -15,7 +15,7 @@ var enemies_in_wave = 0
 
 var base_health = 100
 
-var WAVE_DATA = [["BlueTank", 3.0], ["BlueTank", 0.1], ["BlueTank", 0.1], ["BlueTank", 0.1], ["BlueTank", 0.1]]
+var WAVE_DATA = [["BlueTank", 3.0], ["BlueTank", 3.0], ["BlueTank", 3.0], ["BlueTank", 3.0], ["BlueTank", 0.1]]
 
 
 func _ready():
@@ -87,6 +87,7 @@ func initiate_build_mode(tower_type):
 	build_type = tower_type + "T1"
 	build_mode = true
 	get_node("UI").set_tower_preview(build_type, get_global_mouse_position())
+
 
 func cancel_build_mode():
 	build_mode = false

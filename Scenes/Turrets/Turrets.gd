@@ -56,7 +56,6 @@ func fire_missile():
 
 func _on_Range_body_entered(body):
 	enemy_array.append(body.get_parent())
-	print(enemy_array)
 
 
 func _on_Range_body_exited(body):
