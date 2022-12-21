@@ -17,6 +17,7 @@ var base_health = 100
 var WAVE_DATA
 
 
+
 func _ready():
 	WAVE_DATA = WaveData.WAVE_DATA
 	map_node = get_node("Map1")  ## Turn this into variable based on selected map
@@ -76,6 +77,7 @@ func spawn_enemies(wave_data):
 	if current_wave < WAVE_DATA.size():
 		yield(get_tree().create_timer(2.0), "timeout")  ## Padding between waves
 		start_next_wave()
+		get_node("UI").update_wave_ui()
 
 
 ##

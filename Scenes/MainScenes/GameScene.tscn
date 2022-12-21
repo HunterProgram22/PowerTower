@@ -136,6 +136,49 @@ text = "100"
 align = 2
 valign = 1
 
+[node name="Spacer" type="Label" parent="UI/HUD/InfoBar/H"]
+margin_left = 238.0
+margin_right = 348.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 110, 60 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+custom_fonts/font = ExtResource( 11 )
+align = 2
+valign = 1
+
+[node name="WaveLabel" type="Label" parent="UI/HUD/InfoBar/H"]
+margin_left = 352.0
+margin_right = 462.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 110, 60 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+custom_fonts/font = ExtResource( 11 )
+text = "WAVE:"
+align = 2
+valign = 1
+
+[node name="Wave" type="Label" parent="UI/HUD/InfoBar/H"]
+margin_left = 466.0
+margin_right = 576.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 110, 60 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+align = 1
+valign = 1
+
+[node name="TotalWaves" type="Label" parent="UI/HUD/InfoBar/H"]
+margin_left = 580.0
+margin_right = 690.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 110, 60 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+custom_fonts/font = ExtResource( 11 )
+text = "/ 3"
+align = 1
+valign = 1
+
 [node name="Icon" type="TextureRect" parent="UI/HUD/InfoBar/H"]
 margin_left = 742.0
 margin_right = 802.0

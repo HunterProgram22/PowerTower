@@ -1,7 +1,10 @@
 extends CanvasLayer
 
+
+var current_wave_value = 1
 onready var hp_bar = get_node("HUD/InfoBar/H/HP")
 onready var hp_bar_tween = get_node("HUD/InfoBar/H/HP/Tween")
+onready var wave_value = get_node("HUD/InfoBar/H/Wave")
 
 
 func set_tower_preview(tower_type, mouse_position):
@@ -42,7 +45,6 @@ func _on_PausePlay_pressed():
 	if get_tree().is_paused():
 		get_tree().paused = false
 	elif get_parent().current_wave == 0:
-#		get_parent().current_wave += 1
 		get_parent().start_next_wave()
 	else:
 		get_tree().paused = true
@@ -66,4 +68,8 @@ func update_health_bar(base_health):
 		hp_bar.set_tint_progress("e1be32")  # Orange
 	else: 
 		hp_bar.set_tint_progress("e11e1e")  # Red
-	
+
+
+func update_wave_ui():
+	current_wave_value += 1
+	wave_value.text = str(current_wave_value)
