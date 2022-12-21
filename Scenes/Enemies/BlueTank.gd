@@ -1,1 +1,1 @@
-extends "res://Scenes/Enemies/Tank.gd"
+extends "res://Scenes/Enemies/BaseTank.gd"
