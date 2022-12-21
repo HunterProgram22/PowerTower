@@ -51,7 +51,7 @@ func fire_gun():
 
 
 func fire_missile():
-	pass
+	get_node("AnimationPlayer").play("Fire")
 
 
 func _on_Range_body_entered(body):
