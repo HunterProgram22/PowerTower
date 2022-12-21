@@ -1,5 +1,7 @@
 extends Node2D
 
+signal game_finished(result)
+
 var map_node
 
 var build_mode = false
@@ -10,6 +12,10 @@ var build_type
 
 var current_wave = 0
 var enemies_in_wave = 0
+
+var base_health = 100
+
+var WAVE_DATA = [["BlueTank", 3.0], ["BlueTank", 0.1], ["BlueTank", 0.1], ["BlueTank", 0.1], ["BlueTank", 0.1]]
 
 
 func _ready():
@@ -57,7 +63,7 @@ func start_next_wave():
 
 
 func retrieve_wave_data():
-	var wave_data = [["BlueTank", 3.0], ["BlueTank", 0.1]]
+	var wave_data = WAVE_DATA
 	current_wave += 1
 	enemies_in_wave = wave_data.size()
 	return wave_data
@@ -66,6 +72,7 @@ func retrieve_wave_data():
 func spawn_enemies(wave_data):
 	for i in wave_data:
 		var new_enemy = load("res://Scenes/Enemies/" + i[0] + ".tscn").instance()
+		new_enemy.connect("base_damage", self, "on_base_damage")
 		map_node.get_node("Path").add_child(new_enemy, true)
 		yield(get_tree().create_timer(i[1]), "timeout")
 
@@ -101,4 +108,9 @@ func verify_and_build():
 		## update cash label
 
 
-
+func on_base_damage(damage):
+	base_health -= damage
+	if base_health <= 0:
+		emit_signal("game_finished", false)
+	else:
+		get_node("UI").update_health_bar(base_health)
