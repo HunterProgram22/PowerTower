@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/missile-blast-2-95177.mp3-1a37af19833d1666ac820e8eb761dcd1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Towers/missile-blast-2-95177.mp3"
+dest_files=[ "res://.import/missile-blast-2-95177.mp3-1a37af19833d1666ac820e8eb761dcd1.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
