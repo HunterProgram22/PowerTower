@@ -54,6 +54,7 @@ func fire_missile():
 	get_node("AnimationPlayer").play("Fire")
 
 
+
 func _on_Range_body_entered(body):
 	enemy_array.append(body.get_parent())
 
