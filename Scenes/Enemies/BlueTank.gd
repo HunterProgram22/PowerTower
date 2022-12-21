@@ -2,7 +2,7 @@ extends "res://Scenes/Enemies/BaseTank.gd"
 
 
 func _ready():
-	speed = 250
-	hp = 50
-	base_damage = 20
+	speed = 50
+	hp = 500
+	base_damage = 100
 	._ready()
