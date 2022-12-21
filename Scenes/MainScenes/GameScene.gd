@@ -57,7 +57,7 @@ func start_next_wave():
 
 
 func retrieve_wave_data():
-	var wave_data = [["BlueTank", 0.7], ["BlueTank", 0.1]]
+	var wave_data = [["BlueTank", 3.0], ["BlueTank", 0.1]]
 	current_wave += 1
 	enemies_in_wave = wave_data.size()
 	return wave_data
