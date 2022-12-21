@@ -4,9 +4,9 @@ var type
 
 signal base_damage(damage)
 
-var speed = 100
-var hp = 500
-var base_damage = 50
+var speed = 0
+var hp = 0
+var base_damage = 0
 
 onready var health_bar = get_node("HealthBar")
 onready var impact_area = get_node("Impact")

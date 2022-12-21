@@ -15,7 +15,10 @@ var enemies_in_wave = 0
 
 var base_health = 100
 
-var WAVE_DATA = [["BlueTank", 3.0], ["RedTank", 1.1], ["BlueTank", 2.1], ["BlueTank", 1.1], ["BlueTank", 0.1]]
+var WAVE_DATA = [
+	[["BlueTank", 1.0], ["RedTank", 2.0]],
+	[["BlueTank", 1.0], ["BlueTank", 2.0]],
+	]
 
 
 func _ready():
@@ -35,7 +38,6 @@ func _unhandled_input(event):
 	if event.is_action_released("ui_accept") and build_mode == true:
 		verify_and_build()
 		cancel_build_mode()
-
 
 
 func update_tower_preview():
@@ -63,9 +65,12 @@ func start_next_wave():
 
 
 func retrieve_wave_data():
-	var wave_data = WAVE_DATA
+	print(current_wave)
+	var wave_data = WAVE_DATA[current_wave]
 	current_wave += 1
+	print(current_wave)
 	enemies_in_wave = wave_data.size()
+	print(wave_data)
 	return wave_data
 
 
@@ -75,6 +80,8 @@ func spawn_enemies(wave_data):
 		new_enemy.connect("base_damage", self, "on_base_damage")
 		map_node.get_node("Path").add_child(new_enemy, true)
 		yield(get_tree().create_timer(i[1]), "timeout")
+	if current_wave < WAVE_DATA.size():
+		start_next_wave()
 
 
 ##

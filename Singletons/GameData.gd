@@ -16,18 +16,3 @@ var tower_data = {
 		"category": "Missile",
 		},
 }
-
-var tank_data = {
-	"BlueTank": 
-	{
-		"base_damage": 20,
-		"speed": 150,
-		"hp": 50,
-	},
-	"RedTank": 
-	{
-		"base_damage": 50,
-		"speed": 100,
-		"hp": 100,
-	},
-}
