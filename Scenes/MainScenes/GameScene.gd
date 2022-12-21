@@ -15,7 +15,7 @@ var enemies_in_wave = 0
 
 var base_health = 100
 
-var WAVE_DATA = [["BlueTank", 3.0], ["BlueTank", 0.1]]
+var WAVE_DATA = [["BlueTank", 3.0], ["RedTank", 1.1], ["BlueTank", 2.1], ["BlueTank", 1.1], ["BlueTank", 0.1]]
 
 
 func _ready():
