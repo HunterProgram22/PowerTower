@@ -1,7 +1,7 @@
 extends "res://Scenes/Enemies/BaseTank.gd"
 
 func _ready():
-	speed = 100
-	hp = 150
-	base_damage = 50
+	speed = GameData.tank_data["RedTank"]["speed"]
+	hp = GameData.tank_data["RedTank"]["hp"]
+	base_damage = GameData.tank_data["RedTank"]["base_damage"]
 	._ready()
