@@ -1,5 +1,6 @@
 extends AnimatedSprite
 
+
 func _ready():
 	set_playing(true)
 

@@ -42,7 +42,7 @@ func fire():
 		fire_gun()
 	elif category == "Missile":
 		fire_missile()
-	enemy.on_hit(GameData.tower_data[type]["damage"])
+	enemy.on_hit(GameData.tower_data[type]["damage"], GameData.tower_data[type]["category"])
 	yield(get_tree().create_timer(GameData.tower_data[type]["rof"]), "timeout")
 	ready = true
 

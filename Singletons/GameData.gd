@@ -26,13 +26,13 @@ var tank_data = {
 		"speed": 100,
 		"base_damage": 20,
 	},
-		"RedTank":
+	"RedTank":
 	{
 		"hp": 75,
 		"speed": 150,
 		"base_damage": 50,
 	},
-		"MasterTank":
+	"MasterTank":
 	{
 		"hp": 1000,
 		"speed": 50,
