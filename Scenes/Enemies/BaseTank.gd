@@ -8,6 +8,7 @@ var speed = 0
 var hp = 0
 var base_damage = 0
 
+
 onready var health_bar = get_node("HealthBar")
 onready var impact_area = get_node("Impact")
 var projectile_impact = preload("res://Scenes/SupportScenes/ProjectileImpact.tscn")
