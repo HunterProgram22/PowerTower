@@ -50,13 +50,16 @@ func impact(impact_category):
 	randomize()
 	var y_pos = randi() % 31
 	var impact_location = Vector2(x_pos, y_pos)
-	var new_impact
-	if impact_category == "Projectile":
-		new_impact = projectile_impact.instance()
-	elif impact_category == "Missile":
-		new_impact = missile_impact.instance()
+	var new_impact = _get_impact_type(impact_category)
 	new_impact.position = impact_location
 	impact_area.add_child(new_impact)
+
+
+func _get_impact_type(impact_category):
+	if impact_category == "Projectile":
+		return projectile_impact.instance()
+	elif impact_category == "Missile":
+		return missile_impact.instance()
 
 
 func on_destroy():
