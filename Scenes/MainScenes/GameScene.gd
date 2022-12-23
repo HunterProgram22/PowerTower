@@ -12,6 +12,7 @@ var build_type
 
 var current_wave = 0
 var enemies_in_wave = 0
+var enemies_in_stage = 0
 
 var base_health = 100
 var WAVE_DATA
@@ -20,13 +21,18 @@ var WAVE_DATA
 
 func _ready():
 	WAVE_DATA = WaveData.WAVE_DATA
-	print(WAVE_DATA.size())
-	for i in range(1, WAVE_DATA.size()):
-		print(WAVE_DATA[i].size())
+	enemies_in_stage = get_total_enemies()
+
 		
 	map_node = get_node("Map1")  ## Turn this into variable based on selected map
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+
+
+func get_total_enemies():
+	for i in range(WAVE_DATA.size()):
+		enemies_in_stage += WAVE_DATA[i].size()
+	return enemies_in_stage
 
 
 func _process(delta):
@@ -76,6 +82,7 @@ func spawn_enemies(wave_data):
 	for enemy_data in wave_data:
 		var new_enemy = load("res://Scenes/Enemies/" + enemy_data[0] + ".tscn").instance()
 		new_enemy.connect("base_damage", self, "on_base_damage")
+		new_enemy.connect("enemy_destroyed", self, "update_enemy_count")
 		map_node.get_node("Path").add_child(new_enemy, true)
 		yield(get_tree().create_timer(enemy_data[1]), "timeout")
 	if current_wave < WAVE_DATA.size():
@@ -114,6 +121,12 @@ func verify_and_build():
 		map_node.get_node("TowerExclusion").set_cellv(build_tile, 5)
 		## deduct cash
 		## update cash label
+
+
+func update_enemy_count():
+	enemies_in_stage = enemies_in_stage - 1
+	if enemies_in_stage == 0:
+		emit_signal("game_finished", false)
 
 
 func on_base_damage(damage):

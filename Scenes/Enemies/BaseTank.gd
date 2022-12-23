@@ -5,6 +5,7 @@ extends PathFollow2D
 var type
 
 signal base_damage(damage)
+signal enemy_destroyed()
 
 var speed = 0
 var hp = 0
@@ -64,5 +65,6 @@ func _get_impact_type(impact_category):
 
 func on_destroy():
 	get_node("KinematicBody2D").queue_free()
+	emit_signal("enemy_destroyed")
 	yield(get_tree().create_timer(0.2), "timeout")
 	self.queue_free()
