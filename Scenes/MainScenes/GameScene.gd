@@ -20,6 +20,10 @@ var WAVE_DATA
 
 func _ready():
 	WAVE_DATA = WaveData.WAVE_DATA
+	print(WAVE_DATA.size())
+	for i in range(1, WAVE_DATA.size()):
+		print(WAVE_DATA[i].size())
+		
 	map_node = get_node("Map1")  ## Turn this into variable based on selected map
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
