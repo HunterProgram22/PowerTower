@@ -33,7 +33,7 @@ size_flags_horizontal = 8
 custom_constants/separation = 50
 alignment = 1
 
-[node name="NewGame" type="TextureButton" parent="M/VB"]
+[node name="Map1" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 60.0
 margin_right = 400.0
@@ -44,7 +44,7 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/NewGame"]
+[node name="Label" type="Label" parent="M/VB/Map1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -55,7 +55,7 @@ text = "Map 1"
 align = 1
 valign = 1
 
-[node name="Settings" type="TextureButton" parent="M/VB"]
+[node name="Map2" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 185.0
 margin_right = 400.0
@@ -66,7 +66,7 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/Settings"]
+[node name="Label" type="Label" parent="M/VB/Map2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -77,7 +77,7 @@ text = "Map 2"
 align = 1
 valign = 1
 
-[node name="About" type="TextureButton" parent="M/VB"]
+[node name="Map3" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 310.0
 margin_right = 400.0
@@ -88,7 +88,7 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/About"]
+[node name="Label" type="Label" parent="M/VB/Map3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
