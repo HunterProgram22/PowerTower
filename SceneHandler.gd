@@ -25,6 +25,14 @@ func load_map_menu():
 	map_menu.connect('start_game_map', self, 'start_game')
 
 
+func return_to_map_menu():
+	$GameScene.queue_free()
+	var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
+	add_child(map_menu)
+	map_menu.connect('quit_pressed', self, 'quit_game')
+	map_menu.connect('start_game_map', self, 'start_game')
+
+
 func quit_game():
 	get_tree().quit()
 
@@ -34,7 +42,7 @@ func start_game(map):
 	var game_scene = load('res://Scenes/MainScenes/GameScene.tscn').instance()
 	game_scene.map_node = map
 	game_scene.connect('game_finished', self, 'unload_game')
-	game_scene.connect('level_completed', self, 'load_map_menu')
+	game_scene.connect('level_completed', self, 'return_to_map_menu')
 	add_child(game_scene)
 
 

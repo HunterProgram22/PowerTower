@@ -140,7 +140,6 @@ func verify_and_build():
 func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
-		print("next map")
 		emit_signal("level_completed")
 
 
