@@ -3,7 +3,7 @@ extends Node2D
 signal game_finished(result)
 signal level_completed
 
-var map_node
+var map_node = 'Test'
 var no_map
 
 var build_mode = false
@@ -22,18 +22,19 @@ var WAVE_DATA
 
 
 func _ready():
+	print(map_node)
 	if map_node == 'Map1':
-		get_node('Map2').queue_free()
+		$Map2.queue_free()
 		$Map3.queue_free()
 		map_node = get_node('Map1')
 		WAVE_DATA = WaveData.WAVE_DATA_1
 	elif map_node == 'Map2':
-		get_node('Map1').queue_free()
-		$Map2.queue_free()
+		$Map1.queue_free()
+		$Map3.queue_free()
 		map_node = get_node('Map2')
 		WAVE_DATA = WaveData.WAVE_DATA_2
 	elif map_node == 'Map3':
-		get_node('Map1').queue_free()
+		$Map1.queue_free()
 		$Map2.queue_free()
 		map_node = get_node('Map3')
 		WAVE_DATA = WaveData.WAVE_DATA_3

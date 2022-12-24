@@ -1,9 +1,5 @@
 extends Node
 
-var game_scene = load('res://Scenes/MainScenes/GameScene.tscn').instance()
-var main_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
-var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
-
 
 
 func _ready():
@@ -11,50 +7,39 @@ func _ready():
 
 
 func load_main_menu():
+	var main_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
 	add_child(main_menu)
+	connect_main_menu_recievers(main_menu)
+
+
+func connect_main_menu_recievers(main_menu):
 	main_menu.connect('new_game_pressed', self, 'load_map_menu')
 	main_menu.connect('quit_pressed', self, 'quit_game')
 
 
 func load_map_menu():
-	print('load map menu')
 	$MainMenu.queue_free()
+	var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
 	add_child(map_menu)
-	get_node('MapMenu/M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
-	get_node('MapMenu/M/VB/Map1').connect('pressed', self, 'start_map_1')
-	get_node('MapMenu/M/VB/Map2').connect('pressed', self, 'start_map_2')
-	get_node('MapMenu/M/VB/Map3').connect('pressed', self, 'start_map_3')
+	map_menu.connect('quit_pressed', self, 'quit_game')
+	map_menu.connect('start_game_map', self, 'start_game')
 
 
 func quit_game():
 	get_tree().quit()
 
 
-func start_map_1():
+func start_game(map):
 	$MapMenu.queue_free()
-	game_scene.map_node = 'Map1'
-	start_game()
-
-
-func start_map_2():
-	$MapMenu.queue_free()
-	game_scene.map_node = 'Map2'
-	start_game()
-
-
-func start_map_3():
-	$MapMenu.queue_free()
-	game_scene.map_node = 'Map3'
-	start_game()
-
-
-func start_game():
+	var game_scene = load('res://Scenes/MainScenes/GameScene.tscn').instance()
+	game_scene.map_node = map
 	game_scene.connect('game_finished', self, 'unload_game')
 	game_scene.connect('level_completed', self, 'load_map_menu')
 	add_child(game_scene)
 
 
 func unload_game(result):
-	get_node('GameScene').queue_free()
-	var start_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
-	add_child(start_menu)
+	$GameScene.queue_free()
+	var main_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
+	add_child(main_menu)
+	connect_main_menu_recievers(main_menu)
