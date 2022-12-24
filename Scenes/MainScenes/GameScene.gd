@@ -22,7 +22,6 @@ var WAVE_DATA
 
 
 func _ready():
-	print(map_node)
 	if map_node == 'Map1':
 		$Map2.queue_free()
 		$Map3.queue_free()
