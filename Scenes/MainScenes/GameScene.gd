@@ -17,6 +17,7 @@ var enemies_in_stage = 0
 
 var base_health = 100
 var WAVE_DATA
+var next_map = preload("res://Scenes/Maps/Map2.tscn")
 
 
 
@@ -128,7 +129,14 @@ func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
 		print("next map")
-		emit_signal("next_map")
+		load_next_map()
+
+
+func load_next_map():
+	print("loading next map")
+	$Map2.visible = true
+	$Map1.visible = false
+
 
 
 func on_base_damage(damage):
