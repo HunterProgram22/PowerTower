@@ -12,24 +12,21 @@ func _ready():
 
 func load_main_menu():
 	add_child(main_menu)
-	get_node('MainMenu/M/VB/NewGame').connect('pressed', self, 'on_new_game_pressed')
-	get_node('MainMenu/M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
+	main_menu.connect('new_game_pressed', self, 'load_map_menu')
+	main_menu.connect('quit_pressed', self, 'quit_game')
 
 
 func load_map_menu():
-    $MainMenu.queue_free()
-    add_child(map_menu)
-    get_node('MapMenu/M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
-    get_node('MapMenu/M/VB/Map1').connect('pressed', self, 'start_map_1')
-    get_node('MapMenu/M/VB/Map2').connect('pressed', self, 'start_map_2')
-    get_node('MapMenu/M/VB/Map3').connect('pressed', self, 'start_map_3')
+	print('load map menu')
+	$MainMenu.queue_free()
+	add_child(map_menu)
+	get_node('MapMenu/M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
+	get_node('MapMenu/M/VB/Map1').connect('pressed', self, 'start_map_1')
+	get_node('MapMenu/M/VB/Map2').connect('pressed', self, 'start_map_2')
+	get_node('MapMenu/M/VB/Map3').connect('pressed', self, 'start_map_3')
 
 
-func on_new_game_pressed():
-	load_map_menu()
-
-
-func on_quit_pressed():
+func quit_game():
 	get_tree().quit()
 
 
@@ -58,6 +55,6 @@ func start_game():
 
 
 func unload_game(result):
-    get_node('GameScene').queue_free()
-    var start_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
-    add_child(start_menu)
+	get_node('GameScene').queue_free()
+	var start_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
+	add_child(start_menu)
