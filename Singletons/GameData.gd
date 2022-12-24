@@ -2,40 +2,40 @@ extends Node
 
 
 var tower_data = {
-	"GunT1": 
+	'GunT1':
 	{
-		"damage": 20,
-		"rof": 0.3,
-		"range": 350,
-		"category": "Projectile",
+		'damage': 20,
+		'rof': 1.0,
+		'range': 350,
+		'category': 'Projectile',
 		},
-	"MissileT1": 
+	'MissileT1':
 	{
-		"damage": 100,
-		"rof": 3.0,
-		"range": 550,
-		"category": "Missile",
+		'damage': 100,
+		'rof': 3.0,
+		'range': 550,
+		'category': 'Missile',
 		},
 }
 
 
 var tank_data = {
-	"BlueTank":
+	'BlueTank':
 	{
-		"hp": 50,
-		"speed": 100,
-		"base_damage": 20,
+		'hp': 50,
+		'speed': 100,
+		'base_damage': 20,
 	},
-	"RedTank":
+	'RedTank':
 	{
-		"hp": 75,
-		"speed": 150,
-		"base_damage": 50,
+		'hp': 75,
+		'speed': 150,
+		'base_damage': 50,
 	},
-	"MasterTank":
+	'MasterTank':
 	{
-		"hp": 1000,
-		"speed": 50,
-		"base_damage": 100,
+		'hp': 1000,
+		'speed': 50,
+		'base_damage': 100,
 	},
 }
