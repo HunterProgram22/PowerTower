@@ -1,6 +1,7 @@
 extends Node2D
 
 signal game_finished(result)
+signal next_map
 
 var map_node
 
@@ -126,7 +127,8 @@ func verify_and_build():
 func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
-		emit_signal("game_finished", false)
+		print("next map")
+		emit_signal("next_map")
 
 
 func on_base_damage(damage):

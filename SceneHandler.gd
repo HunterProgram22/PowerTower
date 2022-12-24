@@ -15,11 +15,17 @@ func on_new_game_pressed():
 	get_node("MainMenu").queue_free()
 	var game_scene = load("res://Scenes/MainScenes/GameScene.tscn").instance()
 	game_scene.connect("game_finished", self, "unload_game")
+	game_scene.connect("next_map", self, "load_next_map")
 	add_child(game_scene)
 
 
 func on_quit_pressed():
 	get_tree().quit()
+
+
+func load_next_map():
+	print("loading next map")
+	get_tree().change_scene("res://Scenes/Maps/Map2.tscn")
 
 
 func unload_game(result):
