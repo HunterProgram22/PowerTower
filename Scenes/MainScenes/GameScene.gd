@@ -23,15 +23,15 @@ func _ready():
 	if map_node == 'Map1':
 		map_node = load('res://Scenes/Maps/Map1.tscn').instance()
 		add_child(map_node)
-		wave_data = WaveData.WAVE_DATA_1
+		wave_data = WaveData.wave_data['Map1']
 	elif map_node == 'Map2':
 		map_node = load('res://Scenes/Maps/Map2.tscn').instance()
 		add_child(map_node)
-		wave_data = WaveData.WAVE_DATA_2
+		wave_data = WaveData.wave_data['Map2']
 	elif map_node == 'Map3':
 		map_node = load('res://Scenes/Maps/Map3.tscn').instance()
 		add_child(map_node)
-		wave_data = WaveData.WAVE_DATA_3
+		wave_data = WaveData.wave_data['Map3']
 	enemies_in_stage = get_total_enemies()
 	for i in get_tree().get_nodes_in_group('build_buttons'):
 		i.connect('pressed', self, 'initiate_build_mode', [i.get_name()])
