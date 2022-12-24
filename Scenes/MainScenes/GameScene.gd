@@ -1,7 +1,7 @@
 extends Node2D
 
 signal game_finished(result)
-signal next_map
+signal level_completed
 
 var map_node
 
@@ -129,14 +129,7 @@ func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
 		print("next map")
-		load_next_map()
-
-
-func load_next_map():
-	print("loading next map")
-	$Map2.visible = true
-	$Map1.visible = false
-
+		emit_signal("level_completed")
 
 
 func on_base_damage(damage):
