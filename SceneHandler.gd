@@ -8,13 +8,13 @@ func _ready():
 
 
 func load_main_menu():
-    $MainMenu.visible = true
-    $MapMenu.visible = false
+	$MainMenu.visible = true
+	$MapMenu.visible = false
 
 
 func load_map_menu():
-    $MainMenu.visible = false
-    $MapMenu.visible = true
+	$MainMenu.visible = false
+	$MapMenu.visible = true
 
 
 func connect_scene_handler_signals():
@@ -25,7 +25,7 @@ func connect_scene_handler_signals():
 
 
 func on_new_game_pressed():
-    load_map_menu()
+	load_map_menu()
 #	get_node("MainMenu").queue_free()
 
 
@@ -34,12 +34,12 @@ func on_quit_pressed():
 
 
 func start_game():
-    $MainMenu.queue_free()
-    $MapMenu.queue_free()
-    var game_scene = load("res://Scenes/MainScenes/GameScene.tscn").instance()
-    game_scene.connect("game_finished", self, "unload_game")
-    game_scene.connect("level_completed", self, "load_map_menu")
-    add_child(game_scene)
+	$MainMenu.queue_free()
+	$MapMenu.queue_free()
+	var game_scene = load("res://Scenes/MainScenes/GameScene.tscn").instance()
+	game_scene.connect("game_finished", self, "unload_game")
+	game_scene.connect("level_completed", self, "load_map_menu")
+	add_child(game_scene)
 
 
 func unload_game(result):
