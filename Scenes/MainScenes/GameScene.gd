@@ -24,12 +24,19 @@ var WAVE_DATA
 func _ready():
 	if map_node == 'Map1':
 		get_node('Map2').queue_free()
+		$Map3.queue_free()
 		map_node = get_node('Map1')
 		WAVE_DATA = WaveData.WAVE_DATA_1
 	elif map_node == 'Map2':
 		get_node('Map1').queue_free()
+		$Map2.queue_free()
 		map_node = get_node('Map2')
 		WAVE_DATA = WaveData.WAVE_DATA_2
+	elif map_node == 'Map3':
+		get_node('Map1').queue_free()
+		$Map2.queue_free()
+		map_node = get_node('Map3')
+		WAVE_DATA = WaveData.WAVE_DATA_3
 	enemies_in_stage = get_total_enemies()
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])

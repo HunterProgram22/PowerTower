@@ -25,3 +25,16 @@ var WAVE_DATA_2 = [
 		["MasterTank", 1.0], ["RedTank", 1.0], ["MasterTank", 1.0], ["MasterTank", 1.0],
 	],
 ]
+
+
+var WAVE_DATA_3 = [
+	[
+		["MasterTank", 1.0], ["BlueTank", 2.0], ["BlueTank", 1.0], ["BlueTank", 0.5],
+	],
+	[
+		["MasterTank", 1.0], ["MasterTank", 2.0], ["RedTank", 1.0],
+	],
+	[
+		["MasterTank", 1.0], ["RedTank", 1.0], ["MasterTank", 1.0], ["MasterTank", 1.0],
+	],
+]

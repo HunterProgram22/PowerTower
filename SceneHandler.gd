@@ -24,11 +24,11 @@ func connect_scene_handler_signals():
 	get_node('MapMenu/M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
 	get_node('MapMenu/M/VB/Map1').connect('pressed', self, 'start_map_1')
 	get_node('MapMenu/M/VB/Map2').connect('pressed', self, 'start_map_2')
+	get_node('MapMenu/M/VB/Map3').connect('pressed', self, 'start_map_3')
 
 
 func on_new_game_pressed():
 	load_map_menu()
-#	get_node('MainMenu').queue_free()
 
 
 func on_quit_pressed():
@@ -46,6 +46,13 @@ func start_map_2():
 	$MainMenu.queue_free()
 	$MapMenu.queue_free()
 	game_scene.map_node = 'Map2'
+	start_game()
+
+
+func start_map_3():
+	$MainMenu.queue_free()
+	$MapMenu.queue_free()
+	game_scene.map_node = 'Map3'
 	start_game()
 
 
