@@ -10,7 +10,7 @@ func _ready():
 
 func load_main_menu():
 	$MainMenu.visible = true
-	$MapMenu.visible = false
+#	$MapMenu.visible = false
 
 
 func load_map_menu():
