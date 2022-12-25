@@ -4,18 +4,18 @@ signal new_game_pressed
 signal quit_pressed
 
 
-func _ready():
+func _ready() -> void:
 	connect_signals()
 
 
-func connect_signals():
+func connect_signals() -> void:
 	get_node('M/VB/NewGame').connect('pressed', self, 'on_new_game_pressed')
 	get_node('M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
 
 
-func on_new_game_pressed():
+func on_new_game_pressed() -> void:
 	emit_signal('new_game_pressed')
 
 
-func on_quit_pressed():
+func on_quit_pressed() -> void:
 	emit_signal('quit_pressed')

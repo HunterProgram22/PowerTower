@@ -25,9 +25,10 @@ func load_map_menu():
 	map_menu.connect('start_game_map', self, 'start_game')
 
 
-func return_to_map_menu():
+func return_to_map_menu(map):
 	$GameScene.queue_free()
 	var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
+	map_menu.map_completed = map
 	add_child(map_menu)
 	map_menu.connect('quit_pressed', self, 'quit_game')
 	map_menu.connect('start_game_map', self, 'start_game')
@@ -42,7 +43,7 @@ func start_game(map):
 	var game_scene = load('res://Scenes/MainScenes/GameScene.tscn').instance()
 	game_scene.map_node = map
 	game_scene.connect('game_finished', self, 'unload_game')
-	game_scene.connect('level_completed', self, 'return_to_map_menu')
+	game_scene.connect('level_completed', self, 'return_to_map_menu', [map])
 	add_child(game_scene)
 
 

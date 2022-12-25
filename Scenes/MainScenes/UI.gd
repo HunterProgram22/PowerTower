@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 var current_wave_value = 1
 onready var hp_bar = get_node('HUD/InfoBar/H/HP')
 onready var hp_bar_tween = get_node('HUD/InfoBar/H/HP/Tween')
