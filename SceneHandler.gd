@@ -7,23 +7,47 @@ func _ready():
 
 
 func load_main_menu():
-	get_node("MainMenu/M/VB/NewGame").connect("pressed", self, "on_new_game_pressed")
-	get_node("MainMenu/M/VB/Quit").connect("pressed", self, "on_quit_pressed")
+	var main_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
+	add_child(main_menu)
+	connect_main_menu_recievers(main_menu)
 
 
-func on_new_game_pressed():
-	get_node("MainMenu").queue_free()
-	var game_scene = load("res://Scenes/MainScenes/GameScene.tscn").instance()
-	game_scene.connect("game_finished", self, "unload_game")
-	add_child(game_scene)
+func connect_main_menu_recievers(main_menu):
+	main_menu.connect('new_game_pressed', self, 'load_map_menu')
+	main_menu.connect('quit_pressed', self, 'quit_game')
 
 
-func on_quit_pressed():
+func load_map_menu():
+	$MainMenu.queue_free()
+	var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
+	add_child(map_menu)
+	map_menu.connect('quit_pressed', self, 'quit_game')
+	map_menu.connect('start_game_map', self, 'start_game')
+
+
+func return_to_map_menu():
+	$GameScene.queue_free()
+	var map_menu = load('res://Scenes/UIScenes/MapMenu.tscn').instance()
+	add_child(map_menu)
+	map_menu.connect('quit_pressed', self, 'quit_game')
+	map_menu.connect('start_game_map', self, 'start_game')
+
+
+func quit_game():
 	get_tree().quit()
 
 
+func start_game(map):
+	$MapMenu.queue_free()
+	var game_scene = load('res://Scenes/MainScenes/GameScene.tscn').instance()
+	game_scene.map_node = map
+	game_scene.connect('game_finished', self, 'unload_game')
+	game_scene.connect('level_completed', self, 'return_to_map_menu')
+	add_child(game_scene)
+
+
 func unload_game(result):
-	get_node("GameScene").queue_free()
-	var main_menu = load("res://Scenes/UIScenes/MainMenu.tscn").instance()
+	$GameScene.queue_free()
+	var main_menu = load('res://Scenes/UIScenes/MainMenu.tscn').instance()
 	add_child(main_menu)
-	load_main_menu()
+	connect_main_menu_recievers(main_menu)

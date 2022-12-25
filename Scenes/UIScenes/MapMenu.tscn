@@ -4,9 +4,9 @@
 [ext_resource path="res://Assets/UI/Buttons/blue_button03.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/Buttons/blue_button05.png" type="Texture" id=3]
 [ext_resource path="res://Resources/Fonts/KFN_40_outline1.tres" type="DynamicFont" id=4]
-[ext_resource path="res://Scenes/UIScenes/MainMenu.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/UIScenes/MapMenu.gd" type="Script" id=5]
 
-[node name="MainMenu" type="Control"]
+[node name="MapMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
@@ -35,7 +35,7 @@ size_flags_horizontal = 8
 custom_constants/separation = 50
 alignment = 1
 
-[node name="NewGame" type="TextureButton" parent="M/VB"]
+[node name="Map1" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 60.0
 margin_right = 400.0
@@ -46,18 +46,18 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/NewGame"]
+[node name="Label" type="Label" parent="M/VB/Map1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.705882 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.313726 )
 custom_fonts/font = ExtResource( 4 )
-text = "New Game"
+text = "Map 1"
 align = 1
 valign = 1
 
-[node name="Settings" type="TextureButton" parent="M/VB"]
+[node name="Map2" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 185.0
 margin_right = 400.0
@@ -68,18 +68,18 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/Settings"]
+[node name="Label" type="Label" parent="M/VB/Map2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.705882 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.313726 )
 custom_fonts/font = ExtResource( 4 )
-text = "Settings"
+text = "Map 2"
 align = 1
 valign = 1
 
-[node name="About" type="TextureButton" parent="M/VB"]
+[node name="Map3" type="TextureButton" parent="M/VB"]
 margin_left = 50.0
 margin_top = 310.0
 margin_right = 400.0
@@ -90,14 +90,14 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="Label" type="Label" parent="M/VB/About"]
+[node name="Label" type="Label" parent="M/VB/Map3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.705882 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.313726 )
 custom_fonts/font = ExtResource( 4 )
-text = "About"
+text = "Map 3"
 align = 1
 valign = 1
 
