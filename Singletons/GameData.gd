@@ -3,10 +3,10 @@ extends Node
 
 var tower_data = {
 	'GunT1': {
-		'damage': 120,
+		'damage': 20,
 		'rof': 1.0,
 		'range': 350,
-		'cost': 75,
+		'cost': 50,
 		'category': 'Projectile',
 	},
 	'MissileT1': {
