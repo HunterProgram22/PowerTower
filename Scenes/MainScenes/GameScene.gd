@@ -80,8 +80,10 @@ func retrieve_wave():
 func spawn_enemies(wave):
 	for enemy_data in wave:
 		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
+		new_enemy.type = enemy_data[0]
 		new_enemy.connect('base_damage', self, 'on_base_damage')
 		new_enemy.connect('enemy_destroyed', self, 'update_enemy_count')
+		new_enemy.connect('enemy_destroyed', self, 'add_cash', [new_enemy])
 		map_node.get_node('Path').add_child(new_enemy, true)
 		yield(get_tree().create_timer(enemy_data[1]), 'timeout')
 	if current_wave < wave_data.size():
@@ -111,15 +113,33 @@ func cancel_build_mode():
 func verify_and_build():
 	if build_valid:
 		## Test to verify player has enough cash
-		var new_tower = load('res://Scenes/Turrets/' + build_type + '.tscn').instance()
-		new_tower.position = build_location
-		new_tower.built = true
-		new_tower.type = build_type
-		new_tower.category = GameData.tower_data[build_type]['category']
-		map_node.get_node('Turrets').add_child(new_tower, true)
-		map_node.get_node('TowerExclusion').set_cellv(build_tile, 5)
-		## deduct cash
-		## update cash label
+		var cost = GameData.tower_data[build_type]['cost']
+		var cash_available_node = get_node('UI/HUD/InfoBar/H/Money')
+		var cash_available = int(cash_available_node.text)
+		if cash_available >= cost:
+			var new_tower = load('res://Scenes/Turrets/' + build_type + '.tscn').instance()
+			new_tower.position = build_location
+			new_tower.built = true
+			new_tower.type = build_type
+			new_tower.category = GameData.tower_data[build_type]['category']
+			map_node.get_node('Turrets').add_child(new_tower, true)
+			map_node.get_node('TowerExclusion').set_cellv(build_tile, 5)
+
+			## deduct cash
+			cash_available = cash_available - cost
+			## update cash label
+			cash_available_node.text = str(cash_available)
+		else:
+			print('not enough cash')
+
+
+func add_cash(new_enemy):
+	var cash_to_add = GameData.tank_data[new_enemy.type]['value']
+	var cash_node = get_node('UI/HUD/InfoBar/H/Money')
+	var new_cash = int(cash_node.text) + cash_to_add
+	cash_node.text = str(new_cash)
+
+
 
 
 func update_enemy_count():
