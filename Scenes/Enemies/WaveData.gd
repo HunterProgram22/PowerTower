@@ -6,7 +6,7 @@ var wave_data = {
 	[
 		[['BlueTank', 1.0], ['BlueTank', 2.0], ['BlueTank', 1.0], ['BlueTank', 0.5],],
 		[['BlueTank', 1.0], ['RedTank', 2.0],],
-		[['MasterTank', 1.0], ['RedTank', 1.0], ['MasterTank', 1.0], ['RedTank', 1.0],],
+		[['BlueTank', 1.0], ['RedTank', 1.0], ['MasterTank', 1.0], ['RedTank', 1.0],],
 	],
 	'Map2':
 	[
@@ -17,7 +17,7 @@ var wave_data = {
 	'Map3':
 	[
 		[['MasterTank', 1.0], ['BlueTank', 2.0], ['BlueTank', 1.0], ['BlueTank', 0.5],],
-		[['MasterTank', 1.0], ['MasterTank', 2.0], ['RedTank', 1.0],],
+		[['MasterTank', 1.0], ['BlueTank', 2.0], ['RedTank', 1.0],],
 		[['MasterTank', 1.0], ['RedTank', 1.0], ['MasterTank', 1.0], ['MasterTank', 1.0],],
 	],
 }
