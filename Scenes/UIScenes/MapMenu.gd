@@ -11,8 +11,7 @@ onready var quit_button = get_node('M/VB/Quit')
 
 func _ready() -> void:
 	connect_signals()
-	if map_completed != null:
-		update_button_color(map_completed)
+	update_button_color()
 
 
 func connect_signals() -> void:
@@ -22,14 +21,14 @@ func connect_signals() -> void:
 	map3_button.connect('pressed', self, 'start_map', ['Map3'])
 
 
-func update_button_color(map: String) -> void:
-	get_node('M/VB/' + map + '/Label').set('custom_colors/font_color', Color('03f809'))
-	print('button color changed')
+func update_button_color() -> void:
+	for map in GameData.maps_completed:
+		get_node('M/VB/' + map + '/Label').set('custom_colors/font_color', Color('03f809'))
 
 
 func on_quit_pressed() -> void:
-    Events.emit_signal('quit_pressed')
+	Events.emit_signal('quit_pressed')
 
 
 func start_map(map: String) -> void:
-    Events.emit_signal('start_game_map', map)
+	Events.emit_signal('start_game_map', map)

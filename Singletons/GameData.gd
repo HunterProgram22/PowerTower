@@ -1,6 +1,9 @@
 extends Node
 
 
+var maps_completed = []
+
+
 var tower_data = {
 	'GunT1': {
 		'damage': 20,

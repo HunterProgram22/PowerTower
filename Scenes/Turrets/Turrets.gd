@@ -12,7 +12,7 @@ func _ready():
 		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[type]["range"]
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if enemy_array.size() != 0 and built:
 		select_enemy()
 		if not get_node("AnimationPlayer").is_playing():

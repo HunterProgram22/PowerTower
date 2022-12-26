@@ -33,9 +33,9 @@ func load_map_menu() -> void:
 
 
 func return_to_map_menu(map_name: String) -> void:
+	GameData.maps_completed.append(map_name)
 	$GameScene.queue_free()
 	var map_menu = load(MAP_MENU).instance()
-	map_menu.map_completed = map_name
 	add_child(map_menu)
 
 
