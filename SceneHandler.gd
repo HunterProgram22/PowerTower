@@ -27,14 +27,14 @@ func load_main_menu() -> void:
 
 
 func load_map_menu() -> void:
-    """Loads map menu from main menu."""
+	"""Loads map menu from main menu."""
 	$MainMenu.queue_free()
 	var map_menu = load(MAP_MENU).instance()
 	add_child(map_menu)
 
 
 func return_to_map_menu(map_name: String) -> void:
-    """Loads map menu after a level is completed."""
+	"""Loads map menu after a level is completed."""
 	GameData.maps_completed.append(map_name)
 	$GameScene.queue_free()
 	var map_menu = load(MAP_MENU).instance()

@@ -9,3 +9,5 @@ signal new_game_pressed
 
 signal game_finished
 signal level_completed(map)
+
+signal cash_changed

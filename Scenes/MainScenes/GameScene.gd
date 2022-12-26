@@ -129,6 +129,7 @@ func verify_and_build():
 			cash_available = cash_available - cost
 			## update cash label
 			cash_available_node.text = str(cash_available)
+			Events.emit_signal('cash_changed')
 		else:
 			print('not enough cash')
 
@@ -138,6 +139,7 @@ func add_cash(new_enemy):
 	var cash_node = get_node('UI/HUD/InfoBar/H/Money')
 	var new_cash = int(cash_node.text) + cash_to_add
 	cash_node.text = str(new_cash)
+	Events.emit_signal('cash_changed')
 
 
 func update_enemy_count():

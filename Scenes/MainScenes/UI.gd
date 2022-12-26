@@ -1,15 +1,32 @@
 extends CanvasLayer
 
+
 var current_wave_value = 1
 onready var hp_bar = get_node('HUD/InfoBar/H/HP')
 onready var hp_bar_tween = get_node('HUD/InfoBar/H/HP/Tween')
 onready var wave_value = get_node('HUD/InfoBar/H/Wave')
+onready var gun_button = get_node('HUD/BuildBar/Gun')
+onready var missile_button = get_node('HUD/BuildBar/Missile')
 
-var money = 100
+var money = 150
 onready var current_money = get_node('HUD/InfoBar/H/Money')
+
 
 func _ready():
 	set_money()
+	set_buttons()
+	Events.connect('cash_changed', self, 'set_buttons')
+
+
+func set_buttons():
+	if int(current_money.text) >= 50:
+		gun_button.set_disabled(false)
+	else:
+		gun_button.set_disabled(true)
+	if int(current_money.text) >= 150:
+		missile_button.set_disabled(false)
+	else:
+		missile_button.set_disabled(true)
 
 
 func set_money():
