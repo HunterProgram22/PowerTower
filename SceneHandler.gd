@@ -1,5 +1,5 @@
 # warning-ignore-all:return_value_discarded
-"""Main entry for the game."""
+"""Main control for the game."""
 extends Node
 
 
@@ -27,12 +27,14 @@ func load_main_menu() -> void:
 
 
 func load_map_menu() -> void:
+    """Loads map menu from main menu."""
 	$MainMenu.queue_free()
 	var map_menu = load(MAP_MENU).instance()
 	add_child(map_menu)
 
 
 func return_to_map_menu(map_name: String) -> void:
+    """Loads map menu after a level is completed."""
 	GameData.maps_completed.append(map_name)
 	$GameScene.queue_free()
 	var map_menu = load(MAP_MENU).instance()
