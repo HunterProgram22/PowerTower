@@ -1,7 +1,7 @@
 extends Node
 
-signal new_game_pressed
-signal quit_pressed
+#signal new_game_pressed
+#signal quit_pressed
 
 
 func _ready() -> void:
@@ -14,8 +14,10 @@ func connect_signals() -> void:
 
 
 func on_new_game_pressed() -> void:
-	emit_signal('new_game_pressed')
+    Events.emit_signal('new_game_pressed')
+#	emit_signal('new_game_pressed')
 
 
 func on_quit_pressed() -> void:
-	emit_signal('quit_pressed')
+    Events.emit_signal('quit_pressed')
+#	emit_signal('quit_pressed')

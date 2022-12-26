@@ -1,7 +1,5 @@
 extends Control
 
-signal quit_pressed
-signal start_game_map(map)
 
 onready var map_completed
 
@@ -25,8 +23,8 @@ func update_button_color(map):
 
 
 func on_quit_pressed():
-	emit_signal('quit_pressed')
+    Events.emit_signal('quit_pressed')
 
 
 func start_map(map):
-	emit_signal('start_game_map', map)
+    Events.emit_signal('start_game_map', map)
