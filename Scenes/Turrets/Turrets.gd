@@ -1,6 +1,7 @@
 extends Node2D
 
 var type
+onready var timer = $Timer
 var category
 var enemy_array = []
 var built = false
@@ -10,6 +11,8 @@ var ready = true
 func _ready():
 	if built:
 		self.get_node('Range/CollisionShape2D').get_shape().radius = 0.5 * GameData.tower_data[type]['range']
+		timer.set_wait_time(GameData.tower_data[type]['rof'])
+		timer.connect('timeout', self, 'set_fire_ready')
 
 
 func _physics_process(_delta):
@@ -43,7 +46,10 @@ func fire():
 	elif category == 'Missile':
 		fire_missile()
 	enemy.on_hit(GameData.tower_data[type]['damage'], GameData.tower_data[type]['category'])
-	yield(get_tree().create_timer(GameData.tower_data[type]['rof']), 'timeout')
+	timer.start()
+
+
+func set_fire_ready():
 	ready = true
 
 

@@ -21,3 +21,5 @@ position = Vector2( 42, -6 )
 
 [node name="Muzzle2" type="Position2D" parent="Turret"]
 position = Vector2( 42, 6 )
+
+[node name="Timer" type="Timer" parent="."]
