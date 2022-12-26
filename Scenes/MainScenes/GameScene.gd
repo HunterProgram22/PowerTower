@@ -15,6 +15,7 @@ var enemies_in_stage = 0
 
 var base_health = 100
 var wave_data = []
+onready var timer = $Timer
 
 
 
@@ -142,7 +143,13 @@ func add_cash(new_enemy):
 func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
-		Events.emit_signal('level_completed', map_name)
+		timer.connect('timeout', self, 'all_enemies_destroyed')
+		timer.set_one_shot(true)
+		timer.set_wait_time(2.0)
+		timer.start()
+
+func all_enemies_destroyed():
+	Events.emit_signal('level_completed', map_name)
 
 
 func on_base_damage(damage):
