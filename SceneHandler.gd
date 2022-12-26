@@ -1,3 +1,5 @@
+# warning-ignore-all:return_value_discarded
+"""Main entry for the game."""
 extends Node
 
 
@@ -15,6 +17,8 @@ func connect_signals() -> void:
 	Events.connect('new_game_pressed', self, 'load_map_menu')
 	Events.connect('quit_pressed', self, 'quit_game')
 	Events.connect('start_game_map', self, 'start_game')
+	Events.connect('game_finished', self, 'unload_game')
+	Events.connect('level_completed', self, 'return_to_map_menu')
 
 
 func load_main_menu() -> void:
@@ -28,27 +32,25 @@ func load_map_menu() -> void:
 	add_child(map_menu)
 
 
-func return_to_map_menu(map: String) -> void:
+func return_to_map_menu(map_name: String) -> void:
 	$GameScene.queue_free()
 	var map_menu = load(MAP_MENU).instance()
-	map_menu.map_completed = map
+	map_menu.map_completed = map_name
 	add_child(map_menu)
-
-
-func quit_game() -> void:
-	get_tree().quit()
 
 
 func start_game(map: String) -> void:
 	$MapMenu.queue_free()
 	var game_scene = load(GAME_SCENE).instance()
-	game_scene.map_node = map
-	game_scene.connect('game_finished', self, 'unload_game')
-	game_scene.connect('level_completed', self, 'return_to_map_menu', [map])
+	game_scene.map_name = map
 	add_child(game_scene)
 
 
-func unload_game(result) -> void:
+func unload_game() -> void:
 	$GameScene.queue_free()
 	var main_menu = load(MAIN_MENU).instance()
 	add_child(main_menu)
+
+
+func quit_game() -> void:
+	get_tree().quit()

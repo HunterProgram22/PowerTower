@@ -1,9 +1,8 @@
 extends Node2D
 
-signal game_finished(result)
-signal level_completed
 
-var map_node = 'Test'
+var map_name
+var map
 var build_mode = false
 var build_valid = false
 var build_tile
@@ -20,9 +19,9 @@ var wave_data = []
 
 
 func _ready():
-	wave_data = WaveData.wave_data[map_node]
-	map_node = load('res://Scenes/Maps/' + map_node + '.tscn').instance()
-	add_child(map_node)
+	wave_data = WaveData.wave_data[map_name]
+	map = load('res://Scenes/Maps/' + map_name + '.tscn').instance()
+	add_child(map)
 	enemies_in_stage = get_total_enemies()
 	for i in get_tree().get_nodes_in_group('build_buttons'):
 		i.connect('pressed', self, 'initiate_build_mode', [i.get_name()])
@@ -34,7 +33,7 @@ func get_total_enemies():
 	return enemies_in_stage
 
 
-func _process(delta):
+func _process(_delta):
 	if build_mode:
 		update_tower_preview()
 
@@ -49,10 +48,10 @@ func _unhandled_input(event):
 
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
-	var current_tile = map_node.get_node('TowerExclusion').world_to_map(mouse_position)
-	var tile_position = map_node.get_node('TowerExclusion').map_to_world(current_tile)
+	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
+	var tile_position = map.get_node('TowerExclusion').map_to_world(current_tile)
 	
-	if map_node.get_node('TowerExclusion').get_cellv(current_tile) == -1:
+	if map.get_node('TowerExclusion').get_cellv(current_tile) == -1:
 		get_node('UI').update_tower_preview(tile_position, 'ad54ff3c')
 		build_valid = true
 		build_location = tile_position
@@ -84,7 +83,7 @@ func spawn_enemies(wave):
 		new_enemy.connect('base_damage', self, 'on_base_damage')
 		new_enemy.connect('enemy_destroyed', self, 'update_enemy_count')
 		new_enemy.connect('enemy_destroyed', self, 'add_cash', [new_enemy])
-		map_node.get_node('Path').add_child(new_enemy, true)
+		map.get_node('Path').add_child(new_enemy, true)
 		yield(get_tree().create_timer(enemy_data[1]), 'timeout')
 	if current_wave < wave_data.size():
 		yield(get_tree().create_timer(2.0), 'timeout')  ## Padding between waves
@@ -122,8 +121,8 @@ func verify_and_build():
 			new_tower.built = true
 			new_tower.type = build_type
 			new_tower.category = GameData.tower_data[build_type]['category']
-			map_node.get_node('Turrets').add_child(new_tower, true)
-			map_node.get_node('TowerExclusion').set_cellv(build_tile, 5)
+			map.get_node('Turrets').add_child(new_tower, true)
+			map.get_node('TowerExclusion').set_cellv(build_tile, 5)
 
 			## deduct cash
 			cash_available = cash_available - cost
@@ -140,17 +139,15 @@ func add_cash(new_enemy):
 	cash_node.text = str(new_cash)
 
 
-
-
 func update_enemy_count():
 	enemies_in_stage = enemies_in_stage - 1
 	if enemies_in_stage == 0:
-		emit_signal('level_completed')
+		Events.emit_signal('level_completed', map_name)
 
 
 func on_base_damage(damage):
 	base_health -= damage
 	if base_health <= 0:
-		emit_signal('game_finished', false)
+		Events.emit_signal('game_finished')
 	else:
 		get_node('UI').update_health_bar(base_health)

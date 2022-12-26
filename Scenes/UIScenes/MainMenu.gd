@@ -1,7 +1,9 @@
+# warning-ignore-all:return_value_discarded
 extends Node
 
-#signal new_game_pressed
-#signal quit_pressed
+
+onready var new_game_button = get_node('M/VB/NewGame')
+onready var quit_button = get_node('M/VB/Quit')
 
 
 func _ready() -> void:
@@ -9,15 +11,13 @@ func _ready() -> void:
 
 
 func connect_signals() -> void:
-	get_node('M/VB/NewGame').connect('pressed', self, 'on_new_game_pressed')
-	get_node('M/VB/Quit').connect('pressed', self, 'on_quit_pressed')
+	new_game_button.connect('pressed', self, 'on_new_game_pressed')
+	quit_button.connect('pressed', self, 'on_quit_pressed')
 
 
 func on_new_game_pressed() -> void:
-    Events.emit_signal('new_game_pressed')
-#	emit_signal('new_game_pressed')
+	Events.emit_signal('new_game_pressed')
 
 
 func on_quit_pressed() -> void:
-    Events.emit_signal('quit_pressed')
-#	emit_signal('quit_pressed')
+	Events.emit_signal('quit_pressed')
