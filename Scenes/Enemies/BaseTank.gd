@@ -12,11 +12,11 @@ var hp = 0
 var base_damage = 0
 
 
-onready var health_bar = get_node("HealthBar")
-onready var impact_area = get_node("Impact")
+onready var health_bar = get_node('HealthBar')
+onready var impact_area = get_node('Impact')
 
-var projectile_impact = preload("res://Scenes/SupportScenes/ProjectileImpact.tscn")
-var missile_impact = preload("res://Scenes/SupportScenes/MissileImpact.tscn")
+var projectile_impact = preload('res://Scenes/SupportScenes/ProjectileImpact.tscn')
+var missile_impact = preload('res://Scenes/SupportScenes/MissileImpact.tscn')
 
 
 func _ready():
@@ -27,7 +27,7 @@ func _ready():
 
 func _physics_process(delta):
 	if unit_offset == 1.0:
-		emit_signal("base_damage", base_damage)
+		emit_signal('base_damage', base_damage)
 		queue_free()
 	move(delta)
 
@@ -57,14 +57,21 @@ func impact(impact_category):
 
 
 func _get_impact_type(impact_category):
-	if impact_category == "Projectile":
+	if impact_category == 'Projectile':
 		return projectile_impact.instance()
-	elif impact_category == "Missile":
+	elif impact_category == 'Missile':
 		return missile_impact.instance()
 
 
 func on_destroy():
-	get_node("KinematicBody2D").queue_free()
-	emit_signal("enemy_destroyed")
-	yield(get_tree().create_timer(0.2), "timeout")
+	get_node('KinematicBody2D').queue_free()
+	emit_signal('enemy_destroyed')
+	var timer = $Timer
+	timer.set_one_shot(true)
+	timer.set_wait_time(0.2)
+	timer.connect('timeout', self, 'destroy_timeout')
+	timer.start()
+
+
+func destroy_timeout():
 	self.queue_free()

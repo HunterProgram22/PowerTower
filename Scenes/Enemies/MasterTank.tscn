@@ -34,3 +34,5 @@ nine_patch_stretch = true
 
 [node name="Impact" type="Position2D" parent="."]
 position = Vector2( -15, -15 )
+
+[node name="Timer" type="Timer" parent="."]
