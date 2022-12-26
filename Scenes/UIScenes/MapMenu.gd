@@ -18,8 +18,6 @@ func connect_signals():
 	get_node('M/VB/Map2').connect('pressed', self, 'start_map', ['Map2'])
 	get_node('M/VB/Map3').connect('pressed', self, 'start_map', ['Map3'])
 
-	get_node('M/VB/Map1').connect('level_completed', self, 'update_button_color')
-
 
 func update_button_color(map):
 	get_node('M/VB/' + map + '/Label').set('custom_colors/font_color', Color('03f809'))
