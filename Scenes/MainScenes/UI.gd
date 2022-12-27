@@ -2,15 +2,15 @@
 extends CanvasLayer
 
 
-var current_wave_value : int = 1
-var money : int = 150
+var current_wave_value: int = 1
+var money: int = 150
 
-onready var current_money : Node = get_node('HUD/InfoBar/H/Money')
-onready var hp_bar : Node = get_node('HUD/InfoBar/H/HP')
-onready var hp_bar_tween : Node = get_node('HUD/InfoBar/H/HP/Tween')
-onready var wave_value : Node = get_node('HUD/InfoBar/H/Wave')
-onready var gun_button : Node = get_node('HUD/BuildBar/Gun')
-onready var missile_button : Node = get_node('HUD/BuildBar/Missile')
+onready var current_money: Node = get_node('HUD/InfoBar/H/Money')
+onready var hp_bar: Node = get_node('HUD/InfoBar/H/HP')
+onready var hp_bar_tween: Node = get_node('HUD/InfoBar/H/HP/Tween')
+onready var wave_value: Node = get_node('HUD/InfoBar/H/Wave')
+onready var gun_button: Node = get_node('HUD/BuildBar/Gun')
+onready var missile_button: Node = get_node('HUD/BuildBar/Missile')
 
 
 func _ready() -> void:
