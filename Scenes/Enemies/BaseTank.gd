@@ -1,21 +1,16 @@
 # BaseTank.gd
-
 extends PathFollow2D
 
 var type
-
-#signal base_damage(base_damage)
-
 var speed = 0
 var hp = 0
 var base_damage = 0
-
+var projectile_impact = preload('res://Scenes/SupportScenes/ProjectileImpact.tscn')
+var missile_impact = preload('res://Scenes/SupportScenes/MissileImpact.tscn')
 
 onready var health_bar = get_node('HealthBar')
 onready var impact_area = get_node('Impact')
 
-var projectile_impact = preload('res://Scenes/SupportScenes/ProjectileImpact.tscn')
-var missile_impact = preload('res://Scenes/SupportScenes/MissileImpact.tscn')
 
 
 func _ready():
@@ -64,4 +59,4 @@ func _get_impact_type(impact_category):
 
 func on_destroy():
 	Events.emit_signal('enemy_destroyed', self.type)
-	self.queue_free()
+	queue_free()

@@ -1,12 +1,15 @@
 extends Node2D
 
 var type
-onready var timer = $Timer
 var category
+var enemy
 var enemy_array = []
 var built = false
-var enemy
 var ready = true
+
+onready var timer = $Timer
+
+
 
 func _ready():
 	if built:
@@ -31,6 +34,10 @@ func turn():
 
 
 func select_enemy():
+    """Creates an array and selects enemy at end of array.
+
+    The enemy at the end of the array is closest to end of the map.
+    """
 	var enemy_progress_array = []
 	for i in enemy_array:
 		enemy_progress_array.append(i.offset)
