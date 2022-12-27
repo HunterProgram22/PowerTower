@@ -146,13 +146,13 @@ func deduct_cash(type):
 func update_enemy_count(type):
 	enemies_in_stage = enemies_in_stage - 1
 	add_cash(type)
-	print(enemies_in_stage)
 	if enemies_in_stage == 0:
 		timer.connect('timeout', self, 'all_enemies_destroyed')
 		timer.set_one_shot(true)
 		timer.set_wait_time(3.0)
 		timer.start()
 		print('Timer run')
+
 
 func all_enemies_destroyed():
 	Events.emit_signal('level_completed', map_name)
