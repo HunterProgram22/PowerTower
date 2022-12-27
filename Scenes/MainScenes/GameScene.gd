@@ -20,13 +20,18 @@ onready var timer = $Timer
 
 
 func _ready():
-	Events.connect('enemy_destroyed', self, 'update_enemy_count')
+	connect_signals()
 	wave_data = WaveData.wave_data[map_name]
 	map = load('res://Scenes/Maps/' + map_name + '.tscn').instance()
 	add_child(map)
 	enemies_in_stage = get_total_enemies()
 	for i in get_tree().get_nodes_in_group('build_buttons'):
 		i.connect('pressed', self, 'initiate_build_mode', [i.get_name()])
+
+
+func connect_signals():
+	Events.connect('enemy_destroyed', self, 'update_enemy_count')
+	Events.connect('base_damage', self, 'on_base_damage')
 
 
 func get_total_enemies():
@@ -84,7 +89,7 @@ func spawn_enemies(wave):
 	for enemy_data in wave:
 		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
 		new_enemy.type = enemy_data[0]
-		new_enemy.connect('base_damage', self, 'on_base_damage')
+#		new_enemy.connect('base_damage', self, 'on_base_damage')
 		map.get_node('Path').add_child(new_enemy, true)
 		yield(get_tree().create_timer(enemy_data[1]), 'timeout')
 	if current_wave < wave_data.size():

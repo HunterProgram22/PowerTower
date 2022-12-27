@@ -4,7 +4,7 @@ extends PathFollow2D
 
 var type
 
-signal base_damage(damage)
+#signal base_damage(base_damage)
 
 var speed = 0
 var hp = 0
@@ -26,7 +26,7 @@ func _ready():
 
 func _physics_process(delta):
 	if unit_offset == 1.0:
-		emit_signal('base_damage', base_damage)
+		Events.emit_signal('base_damage', base_damage)
 		queue_free()
 	move(delta)
 
@@ -64,5 +64,4 @@ func _get_impact_type(impact_category):
 
 func on_destroy():
 	Events.emit_signal('enemy_destroyed', self.type)
-#	get_node('KinematicBody2D').queue_free()
 	self.queue_free()

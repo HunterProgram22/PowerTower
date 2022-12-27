@@ -13,3 +13,4 @@ signal level_completed(map)
 signal cash_changed
 
 signal enemy_destroyed(type)
+signal base_damage(base_damage)
