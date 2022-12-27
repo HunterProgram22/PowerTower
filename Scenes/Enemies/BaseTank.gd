@@ -66,12 +66,4 @@ func _get_impact_type(impact_category):
 func on_destroy():
 	get_node('KinematicBody2D').queue_free()
 	emit_signal('enemy_destroyed')
-	var timer = $Timer
-	timer.set_one_shot(true)
-	timer.set_wait_time(0.2)
-	timer.connect('timeout', self, 'destroy_timeout')
-	timer.start()
-
-
-func destroy_timeout():
 	self.queue_free()
