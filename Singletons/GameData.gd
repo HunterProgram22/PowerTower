@@ -6,7 +6,7 @@ var maps_completed = []
 
 var tower_data = {
 	'GunT1': {
-		'damage': 20,
+		'damage': 25,
 		'rof': 1.0,
 		'range': 350,
 		'cost': 50,
