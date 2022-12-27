@@ -22,7 +22,7 @@ onready var cash_node: Label = $UI/HUD/InfoBar/H/Money
 
 
 
-func _ready():
+func _ready() -> void:
 	connect_signals()
 	wave_data = WaveData.wave_data[map_name]
 	map = load('res://Scenes/Maps/' + map_name + '.tscn').instance()
@@ -32,23 +32,23 @@ func _ready():
 		i.connect('pressed', self, 'initiate_build_mode', [i.get_name()])
 
 
-func connect_signals():
+func connect_signals() -> void:
 	Events.connect('enemy_destroyed', self, 'update_enemy_count')
 	Events.connect('base_damage', self, 'on_base_damage')
 
 
-func get_total_enemies():
+func get_total_enemies() -> int:
 	for i in range(wave_data.size()):
 		enemies_in_stage += wave_data[i].size()
 	return enemies_in_stage
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	if build_mode:
 		update_tower_preview()
 
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released('ui_cancel') and build_mode == true:
 		cancel_build_mode()
 	if event.is_action_released('ui_accept') and build_mode == true:
@@ -56,7 +56,7 @@ func _unhandled_input(event):
 		cancel_build_mode()
 
 
-func update_tower_preview():
+func update_tower_preview() -> void:
 	var mouse_position = get_global_mouse_position()
 	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
 	var tile_position = map.get_node('TowerExclusion').map_to_world(current_tile)
@@ -74,19 +74,23 @@ func update_tower_preview():
 ##
 ## Wave Functions
 ##
-func start_next_wave():
+func start_next_wave() -> void:
 	var next_wave = retrieve_wave()
 	spawn_enemies(next_wave)
 
 
-func retrieve_wave():
+func retrieve_wave() -> Array:
 	var wave = wave_data[current_wave]
 	current_wave += 1
 	enemies_in_wave = wave.size()
 	return wave
 
 
-func spawn_enemies(wave):
+func spawn_enemies(wave: Array) -> void:
+	"""The wave Array contains a list of enemies.
+
+	Each enemy in the list is in the format ('UnitName'[str], DelayTime[float]).
+	"""
 	for enemy_data in wave:
 		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
 		new_enemy.type = enemy_data[0]
@@ -101,7 +105,7 @@ func spawn_enemies(wave):
 ##
 ## Building Functions
 ##
-func initiate_build_mode(tower_type):
+func initiate_build_mode(tower_type: String) -> void:
 	if build_mode:
 		cancel_build_mode()
 	build_type = tower_type + 'T1'
@@ -109,13 +113,13 @@ func initiate_build_mode(tower_type):
 	$UI.set_tower_preview(build_type, get_global_mouse_position())
 
 
-func cancel_build_mode():
+func cancel_build_mode() -> void:
 	build_mode = false
 	build_valid = false
 	$UI/TowerPreview.free()
 
 
-func verify_and_build():
+func verify_and_build() -> void:
 	if build_valid:
 		var new_tower = load('res://Scenes/Turrets/' + build_type + '.tscn').instance()
 		new_tower.position = build_location
@@ -127,7 +131,7 @@ func verify_and_build():
 		deduct_cash(new_tower.type)
 
 
-func add_cash(type):
+func add_cash(type: String) -> void:
 	var value = GameData.tank_data[type]['value']
 	var current_cash = int(cash_node.text)
 	current_cash += value
@@ -135,7 +139,7 @@ func add_cash(type):
 	Events.emit_signal('cash_changed')
 
 
-func deduct_cash(type):
+func deduct_cash(type: String) -> void:
 	var cost = GameData.tower_data[type]['cost']
 	var current_cash = int(cash_node.text)
 	current_cash -= cost
@@ -143,7 +147,7 @@ func deduct_cash(type):
 	Events.emit_signal('cash_changed')
 
 
-func update_enemy_count(type):
+func update_enemy_count(type: String) -> void:
 	enemies_in_stage = enemies_in_stage - 1
 	add_cash(type)
 	if enemies_in_stage == 0:
@@ -154,11 +158,11 @@ func update_enemy_count(type):
 		print('Timer run')
 
 
-func all_enemies_destroyed():
+func all_enemies_destroyed() -> void:
 	Events.emit_signal('level_completed', map_name)
 
 
-func on_base_damage(damage):
+func on_base_damage(damage: int) -> void:
 	base_health -= damage
 	if base_health <= 0:
 		Events.emit_signal('game_finished')
