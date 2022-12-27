@@ -1,13 +1,14 @@
 extends Node2D
 
-var type
-var category
-var enemy
-var enemy_array = []
-var built = false
-var ready = true
 
-onready var timer = $Timer
+var type : String
+var category : String
+var enemy_location : PathFollow2D
+var enemy_array : Array = []
+var built : bool = false
+var ready : bool = true
+
+onready var timer : Timer = $Timer
 
 
 
@@ -21,29 +22,29 @@ func _ready():
 func _physics_process(_delta):
 	if enemy_array.size() != 0 and built:
 		select_enemy()
-		if not get_node('AnimationPlayer').is_playing():
+		if not $AnimationPlayer.is_playing():
 			turn()
 		if ready:
 			fire()
 	else:
-		enemy = null
+		enemy_location = null
 
 
 func turn():
-	get_node('Turret').look_at(enemy.position)
+	$Turret.look_at(enemy_location.position)
 
 
 func select_enemy():
-    """Creates an array and selects enemy at end of array.
+	"""Creates an array and selects enemy at end of array.
 
-    The enemy at the end of the array is closest to end of the map.
-    """
+	The enemy at the end of the array is closest to end of the map.
+	"""
 	var enemy_progress_array = []
 	for i in enemy_array:
 		enemy_progress_array.append(i.offset)
 	var max_offset = enemy_progress_array.max()
 	var enemy_index = enemy_progress_array.find(max_offset)
-	enemy = enemy_array[enemy_index]
+	enemy_location = enemy_array[enemy_index]
 
 
 func fire():
@@ -52,7 +53,7 @@ func fire():
 		fire_gun()
 	elif category == 'Missile':
 		fire_missile()
-	enemy.on_hit(GameData.tower_data[type]['damage'], GameData.tower_data[type]['category'])
+	enemy_location.on_hit(GameData.tower_data[type]['damage'], GameData.tower_data[type]['category'])
 	timer.start()
 
 
