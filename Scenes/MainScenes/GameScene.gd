@@ -20,6 +20,7 @@ onready var timer = $Timer
 
 
 func _ready():
+	Events.connect('enemy_destroyed', self, 'update_enemy_count')
 	wave_data = WaveData.wave_data[map_name]
 	map = load('res://Scenes/Maps/' + map_name + '.tscn').instance()
 	add_child(map)
@@ -31,6 +32,8 @@ func _ready():
 func get_total_enemies():
 	for i in range(wave_data.size()):
 		enemies_in_stage += wave_data[i].size()
+	print('enemies')
+	print(enemies_in_stage)
 	return enemies_in_stage
 
 
@@ -82,8 +85,6 @@ func spawn_enemies(wave):
 		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
 		new_enemy.type = enemy_data[0]
 		new_enemy.connect('base_damage', self, 'on_base_damage')
-		new_enemy.connect('enemy_destroyed', self, 'update_enemy_count')
-		new_enemy.connect('enemy_destroyed', self, 'add_cash', [new_enemy])
 		map.get_node('Path').add_child(new_enemy, true)
 		yield(get_tree().create_timer(enemy_data[1]), 'timeout')
 	if current_wave < wave_data.size():
@@ -134,21 +135,24 @@ func verify_and_build():
 			print('not enough cash')
 
 
-func add_cash(new_enemy):
-	var cash_to_add = GameData.tank_data[new_enemy.type]['value']
+func add_cash(type):
+	var cash_to_add = GameData.tank_data[type]['value']
 	var cash_node = get_node('UI/HUD/InfoBar/H/Money')
 	var new_cash = int(cash_node.text) + cash_to_add
 	cash_node.text = str(new_cash)
 	Events.emit_signal('cash_changed')
 
 
-func update_enemy_count():
+func update_enemy_count(type):
 	enemies_in_stage = enemies_in_stage - 1
+	add_cash(type)
+	print(enemies_in_stage)
 	if enemies_in_stage == 0:
 		timer.connect('timeout', self, 'all_enemies_destroyed')
 		timer.set_one_shot(true)
-		timer.set_wait_time(2.0)
+		timer.set_wait_time(3.0)
 		timer.start()
+		print('Timer run')
 
 func all_enemies_destroyed():
 	Events.emit_signal('level_completed', map_name)

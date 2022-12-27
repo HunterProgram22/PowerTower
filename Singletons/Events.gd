@@ -11,3 +11,5 @@ signal game_finished
 signal level_completed(map)
 
 signal cash_changed
+
+signal enemy_destroyed(type)
