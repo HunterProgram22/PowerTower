@@ -1,14 +1,15 @@
+# warning-ignore-all:return_value_discarded
 extends Node2D
 
 
-var type : String
-var category : String
-var enemy_location : PathFollow2D
-var enemy_array : Array = []
-var built : bool = false
-var ready : bool = true
+var type: String
+var category: String
+var enemy_location: PathFollow2D
+var enemy_array: Array = []
+var built: bool = false
+var ready: bool = true
 
-onready var timer : Timer = $Timer
+onready var timer: Timer = $Timer
 
 
 

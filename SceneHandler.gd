@@ -3,9 +3,9 @@
 extends Node
 
 
-const GAME_SCENE : String = 'res://Scenes/MainScenes/GameScene.tscn'
-const MAIN_MENU : String = 'res://Scenes/UIScenes/MainMenu.tscn'
-const MAP_MENU : String = 'res://Scenes/UIScenes/MapMenu.tscn'
+const GAME_SCENE: String = 'res://Scenes/MainScenes/GameScene.tscn'
+const MAIN_MENU: String = 'res://Scenes/UIScenes/MainMenu.tscn'
+const MAP_MENU: String = 'res://Scenes/UIScenes/MapMenu.tscn'
 
 
 func _ready() -> void:

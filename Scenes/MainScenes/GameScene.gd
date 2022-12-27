@@ -1,21 +1,21 @@
+# warning-ignore-all:return_value_discarded
 extends Node2D
 
 
-var map_name
-var map
-var build_mode = false
-var build_valid = false
-var build_tile
-var build_location
-var build_type
+var build_tile: Vector2
+var build_location: Vector2
+var build_type: String
+var map: Node2D
+var map_name: String
+var build_mode: bool = false
+var build_valid: bool = false
+var current_wave: int = 0
+var enemies_in_wave: int = 0
+var enemies_in_stage: int = 0
+var base_health: int = 100
+var wave_data: Array = []
 
-var current_wave = 0
-var enemies_in_wave = 0
-var enemies_in_stage = 0
-
-var base_health = 100
-var wave_data = []
-onready var timer = $Timer
+onready var timer: Timer = $Timer
 
 
 
@@ -61,12 +61,12 @@ func update_tower_preview():
 	var tile_position = map.get_node('TowerExclusion').map_to_world(current_tile)
 	
 	if map.get_node('TowerExclusion').get_cellv(current_tile) == -1:
-		get_node('UI').update_tower_preview(tile_position, 'ad54ff3c')
+		$UI.update_tower_preview(tile_position, 'ad54ff3c')
 		build_valid = true
 		build_location = tile_position
 		build_tile = current_tile
 	else:
-		get_node('UI').update_tower_preview(tile_position, 'adff4545')
+		$UI.update_tower_preview(tile_position, 'adff4545')
 		build_valid = false
 
 
