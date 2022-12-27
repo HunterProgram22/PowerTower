@@ -14,7 +14,7 @@ onready var timer : Timer = $Timer
 
 func _ready():
 	if built:
-		self.get_node('Range/CollisionShape2D').get_shape().radius = 0.5 * GameData.tower_data[type]['range']
+		get_node('Range/CollisionShape2D').get_shape().radius = 0.5 * GameData.tower_data[type]['range']
 		timer.set_wait_time(GameData.tower_data[type]['rof'])
 		timer.connect('timeout', self, 'set_fire_ready')
 
@@ -62,11 +62,11 @@ func set_fire_ready():
 
 
 func fire_gun():
-	get_node('AnimationPlayer').play('Fire')
+	$AnimationPlayer.play('Fire')
 
 
 func fire_missile():
-	get_node('AnimationPlayer').play('Fire')
+	$AnimationPlayer.play('Fire')
 
 
 
