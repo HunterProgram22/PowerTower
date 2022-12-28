@@ -85,8 +85,8 @@ func _on_PausePlay_pressed():
 		get_parent().cancel_build_mode()
 	if get_tree().is_paused():
 		get_tree().paused = false
-	elif get_parent().current_wave == 0:
-		get_parent().start_next_wave()
+	elif get_parent().get_node('EnemyManager').current_wave == 0:
+		get_parent().get_node('EnemyManager').start_next_wave()
 	else:
 		get_tree().paused = true
 
