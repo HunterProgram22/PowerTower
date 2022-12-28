@@ -48,7 +48,6 @@ func _unhandled_input(event: InputEvent) -> void:
 ##
 func update_tower_preview() -> void:
 	var mouse_position = get_global_mouse_position()
-#	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
 	var current_tile = $Map/TowerExclusion.world_to_map(mouse_position)
 	var tile_position = $Map/TowerExclusion.map_to_world(current_tile)
 

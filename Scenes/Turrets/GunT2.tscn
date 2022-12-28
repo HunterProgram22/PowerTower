@@ -105,6 +105,7 @@ stream = ExtResource( 6 )
 position = Vector2( 43, -6 )
 
 [node name="MuzleFlash" type="Sprite" parent="Turret/Muzzle2"]
+visible = false
 position = Vector2( 10, 0 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 3 )
