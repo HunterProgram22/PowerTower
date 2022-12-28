@@ -1,3 +1,4 @@
+# warning-ignore-all:return_value_discarded
 extends Node2D
 
 var map_name: String
@@ -56,12 +57,12 @@ func spawn_enemies(wave: Array) -> void:
 	if current_wave < wave_data.size():
 		yield(get_tree().create_timer(2.0), 'timeout')  # Padding between waves
 		start_next_wave()
-		$UI.update_wave_ui()
+		get_parent().get_node('UI').update_wave_ui()
 
 
 func update_enemy_count(type: String) -> void:
 	enemies_in_stage = enemies_in_stage - 1
-	Events.emit_signal('add_cash', self, type)
+	Events.emit_signal('add_cash', type)
 #	add_cash(type)
 	if enemies_in_stage == 0:
 		timer.connect('timeout', self, 'all_enemies_destroyed')
