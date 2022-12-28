@@ -11,36 +11,23 @@ var map: Node2D
 var map_name: String
 var build_mode: bool = false
 var build_valid: bool = false
-var current_wave: int = 0
-var enemies_in_wave: int = 0
-var enemies_in_stage: int = 0
 var base_health: int = 100
-var wave_data: Array = []
 
-onready var timer: Timer = $Timer
 onready var cash_node: Label = $UI/HUD/InfoBar/H/Money
 
 
 
 func _ready() -> void:
 	connect_signals()
-	wave_data = WaveData.wave_data[map_name]
 	map = load('res://Scenes/Maps/' + map_name + '.tscn').instance()
 	add_child(map)
-	enemies_in_stage = get_total_enemies()
 	for i in get_tree().get_nodes_in_group('build_buttons'):
 		i.connect('pressed', self, 'initiate_build_mode', [i.get_name()])
 
 
 func connect_signals() -> void:
-	Events.connect('enemy_destroyed', self, 'update_enemy_count')
+	Events.connect('add_cash', self, 'add_cash')
 	Events.connect('base_damage', self, 'on_base_damage')
-
-
-func get_total_enemies() -> int:
-	for i in range(wave_data.size()):
-		enemies_in_stage += wave_data[i].size()
-	return enemies_in_stage
 
 
 func _process(_delta) -> void:
@@ -56,6 +43,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		cancel_build_mode()
 
 
+##
+## Building Functions
+##
 func update_tower_preview() -> void:
 	var mouse_position = get_global_mouse_position()
 	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
@@ -71,40 +61,6 @@ func update_tower_preview() -> void:
 		build_valid = false
 
 
-##
-## Wave Functions
-##
-func start_next_wave() -> void:
-	var next_wave = retrieve_wave()
-	spawn_enemies(next_wave)
-
-
-func retrieve_wave() -> Array:
-	var wave = wave_data[current_wave]
-	current_wave += 1
-	enemies_in_wave = wave.size()
-	return wave
-
-
-func spawn_enemies(wave: Array) -> void:
-	"""The wave Array contains a list of enemies.
-
-	Each enemy in the list is in the format ('UnitName'[str], DelayTime[float]).
-	"""
-	for enemy_data in wave:
-		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
-		new_enemy.type = enemy_data[0]
-		map.get_node('Path').add_child(new_enemy, true)
-		yield(get_tree().create_timer(enemy_data[1]), 'timeout')  # Padding between enemies
-	if current_wave < wave_data.size():
-		yield(get_tree().create_timer(2.0), 'timeout')  # Padding between waves
-		start_next_wave()
-		$UI.update_wave_ui()
-
-
-##
-## Building Functions
-##
 func initiate_build_mode(tower_type: String) -> void:
 	if build_mode:
 		cancel_build_mode()
@@ -145,21 +101,6 @@ func deduct_cash(type: String) -> void:
 	current_cash -= cost
 	cash_node.text = str(current_cash)
 	Events.emit_signal('cash_changed')
-
-
-func update_enemy_count(type: String) -> void:
-	enemies_in_stage = enemies_in_stage - 1
-	add_cash(type)
-	if enemies_in_stage == 0:
-		timer.connect('timeout', self, 'all_enemies_destroyed')
-		timer.set_one_shot(true)
-		timer.set_wait_time(3.0)
-		timer.start()
-		print('Timer run')
-
-
-func all_enemies_destroyed() -> void:
-	Events.emit_signal('level_completed', map_name)
 
 
 func on_base_damage(damage: int) -> void:
