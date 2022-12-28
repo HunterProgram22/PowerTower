@@ -48,10 +48,11 @@ func _unhandled_input(event: InputEvent) -> void:
 ##
 func update_tower_preview() -> void:
 	var mouse_position = get_global_mouse_position()
-	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
-	var tile_position = map.get_node('TowerExclusion').map_to_world(current_tile)
+#	var current_tile = map.get_node('TowerExclusion').world_to_map(mouse_position)
+	var current_tile = $Map/TowerExclusion.world_to_map(mouse_position)
+	var tile_position = $Map/TowerExclusion.map_to_world(current_tile)
 
-	if map.get_node('TowerExclusion').get_cellv(current_tile) == -1:
+	if $Map/TowerExclusion.get_cellv(current_tile) == -1:
 		$UI.update_tower_preview(tile_position, GREEN)
 		build_valid = true
 		build_location = tile_position
@@ -82,8 +83,8 @@ func verify_and_build() -> void:
 		new_tower.built = true
 		new_tower.type = build_type
 		new_tower.category = GameData.tower_data[build_type]['category']
-		map.get_node('Turrets').add_child(new_tower, true)
-		map.get_node('TowerExclusion').set_cellv(build_tile, 5)
+		$Map/Turrets.add_child(new_tower, true)
+		$Map/TowerExclusion.set_cellv(build_tile, 5)
 		deduct_cash(new_tower.type)
 
 

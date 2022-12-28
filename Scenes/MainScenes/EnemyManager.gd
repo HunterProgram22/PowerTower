@@ -65,7 +65,6 @@ func update_enemy_count(type: String) -> void:
 		timer.set_one_shot(true)
 		timer.set_wait_time(3.0)
 		timer.start()
-		print('Timer run')
 
 
 func all_enemies_destroyed() -> void:
