@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 
 GameData="*res://Singletons/GameData.gd"
 WaveData="*res://Scenes/Enemies/WaveData.gd"
+Events="*res://Singletons/Events.gd"
 
 [display]
 
@@ -65,6 +66,10 @@ ui_cancel={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [physics]
 
