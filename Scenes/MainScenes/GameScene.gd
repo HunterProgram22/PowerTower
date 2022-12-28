@@ -28,6 +28,7 @@ func _ready() -> void:
 func connect_signals() -> void:
 	Events.connect('add_cash', self, 'add_cash')
 	Events.connect('base_damage', self, 'on_base_damage')
+	Events.connect('upgrade_turret', self, 'on_upgrade_turret')
 
 
 func _process(_delta) -> void:
@@ -85,6 +86,20 @@ func verify_and_build() -> void:
 		$Map/Turrets.add_child(new_tower, true)
 		$Map/TowerExclusion.set_cellv(build_tile, 5)
 		deduct_cash(new_tower.type)
+
+
+func on_upgrade_turret(current_turret: Node2D) -> void:
+    """Category and position must be added after new_turret is added to tree."""
+    var turrets = current_turret.get_parent()
+    print(turrets)
+    var current_tile = current_turret.position
+    turrets.remove_child(current_turret)
+    var new_turret = load('res://Scenes/Turrets/GunT2.tscn').instance()
+    new_turret.built = true
+    new_turret.type = 'GunT2'
+    turrets.add_child(new_turret)
+    new_turret.category = GameData.tower_data[new_turret.type]['category']
+    new_turret.position = current_tile
 
 
 func add_cash(type: String) -> void:
