@@ -89,17 +89,32 @@ func verify_and_build() -> void:
 
 
 func on_upgrade_turret(current_turret: Node2D) -> void:
-    """Category and position must be added after new_turret is added to tree."""
-    var turrets = current_turret.get_parent()
-    print(turrets)
-    var current_tile = current_turret.position
-    turrets.remove_child(current_turret)
-    var new_turret = load('res://Scenes/Turrets/GunT2.tscn').instance()
-    new_turret.built = true
-    new_turret.type = 'GunT2'
-    turrets.add_child(new_turret)
-    new_turret.category = GameData.tower_data[new_turret.type]['category']
-    new_turret.position = current_tile
+	"""Category and position must be added after new_turret is added to tree."""
+	var upgrade_cost = get_upgrade_cost(current_turret)
+	if upgrade_cost > int(cash_node.text):
+		print('not enough cash')
+	else:
+		var current_tile = current_turret.position
+		current_turret.queue_free()
+		var new_turret = load('res://Scenes/Turrets/GunT2.tscn').instance()
+		new_turret.built = true
+		new_turret.type = 'GunT2'
+		new_turret.category = GameData.tower_data[new_turret.type]['category']
+		new_turret.position = current_tile
+		$Map/Turrets.add_child(new_turret)
+
+
+func get_upgrade_cost(current_turret: Node2D) -> int:
+	var new_turret_level = int(current_turret.type[-1])
+	new_turret_level += 1
+	print(new_turret_level)
+	print(current_turret.type.split('T'))
+	var substring = current_turret.type.split('T')[0]
+	var new_turret_type = substring + 'T' + str(new_turret_level)
+	print(new_turret_type)
+	var cost = GameData.tower_data[new_turret_type]['cost']
+	print(cost)
+	return cost
 
 
 func add_cash(type: String) -> void:
