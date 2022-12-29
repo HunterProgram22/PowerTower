@@ -61,10 +61,10 @@ texture = ExtResource( 2 )
 offset = Vector2( 12, 0 )
 
 [node name="Muzzle" type="Position2D" parent="Turret"]
+visible = false
 position = Vector2( 43, 0 )
 
 [node name="MuzleFlash" type="Sprite" parent="Turret/Muzzle"]
-visible = false
 position = Vector2( 10, 0 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 4 )
