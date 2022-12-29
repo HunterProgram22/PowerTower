@@ -16,3 +16,5 @@ signal add_cash(type)
 
 signal enemy_destroyed(type)
 signal base_damage(base_damage)
+
+signal upgrade_turret(current_turret)

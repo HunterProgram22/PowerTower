@@ -1,9 +1,11 @@
 # warning-ignore-all:return_value_discarded
 extends CanvasLayer
 
+const GREEN: String = 'ad54ff3c'
 
 var current_wave_value: int = 1
 var money: int = 150
+var range_overlay_img: StreamTexture = preload('res://Assets/UI/range_overlay.png')
 
 onready var current_money: Node = get_node('HUD/InfoBar/H/Money')
 onready var hp_bar: Node = get_node('HUD/InfoBar/H/HP')
@@ -48,21 +50,21 @@ func set_tower_preview(tower_type: String, mouse_position: Vector2) -> void:
 	control.rect_position = mouse_position
 	control.set_name('TowerPreview')
 	add_child(control, true)
-	move_child(get_node('TowerPreview'), 0)
+	move_child($TowerPreview, 0)
 
 
 func update_tower_preview(new_position: Vector2, color: String) -> void:
-	get_node('TowerPreview').rect_position = new_position
-	if get_node('TowerPreview/DragTower').modulate != Color(color):
-		get_node('TowerPreview/DragTower').modulate = Color(color)
-		get_node('TowerPreview/Sprite').modulate = Color(color)
+	$TowerPreview.rect_position = new_position
+	if $TowerPreview/DragTower.modulate != Color(color):
+		$TowerPreview/DragTower.modulate = Color(color)
+		$TowerPreview/Sprite.modulate = Color(color)
 
 
 func create_drag_tower(tower_type: String) -> Node2D:
 	"""Creates image of tower to drag on map for building."""
 	var tower = load('res://Scenes/Turrets/' + tower_type + '.tscn').instance()
 	tower.set_name('DragTower')
-	tower.modulate = Color('ad54ff3c')
+	tower.modulate = Color(GREEN)
 	return tower
 
 
@@ -72,15 +74,15 @@ func create_tower_range(tower_type: String) -> Sprite:
 	range_texture.position = Vector2(32, 32)
 	var scaling = GameData.tower_data[tower_type]['range'] / 600.0
 	range_texture.scale = Vector2(scaling, scaling)
-	range_texture.texture = load('res://Assets/UI/range_overlay.png')
-	range_texture.modulate = Color('ad54ff3c')
+	range_texture.texture = range_overlay_img
+	range_texture.modulate = Color(GREEN)
 	return range_texture
 
 
 ##
 ## Game Control Functions
 ##
-func _on_PausePlay_pressed():
+func _on_PausePlay_pressed() -> void:
 	if get_parent().build_mode:
 		get_parent().cancel_build_mode()
 	if get_tree().is_paused():
@@ -91,7 +93,7 @@ func _on_PausePlay_pressed():
 		get_tree().paused = true
 
 
-func _on_SpeedUp_pressed():
+func _on_SpeedUp_pressed() -> void:
 	if get_parent().build_mode:
 		get_parent().cancel_build_mode()
 	if Engine.get_time_scale() == 2.0:
@@ -100,7 +102,7 @@ func _on_SpeedUp_pressed():
 		Engine.set_time_scale(2.0)
 
 
-func update_health_bar(base_health):
+func update_health_bar(base_health: int) -> void:
 	hp_bar_tween.interpolate_property(hp_bar, 'value', hp_bar.value, base_health, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	hp_bar_tween.start()
 	if base_health >= 60:
@@ -111,6 +113,6 @@ func update_health_bar(base_health):
 		hp_bar.set_tint_progress('e11e1e')  # Red
 
 
-func update_wave_ui():
+func update_wave_ui() -> void:
 	current_wave_value += 1
 	wave_value.text = str(current_wave_value)

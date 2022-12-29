@@ -29,9 +29,6 @@ func get_total_enemies() -> int:
 	return enemies_in_stage
 
 
-##
-## Wave Functions
-##
 func start_next_wave() -> void:
 	var next_wave = retrieve_wave()
 	spawn_enemies(next_wave)
@@ -63,13 +60,11 @@ func spawn_enemies(wave: Array) -> void:
 func update_enemy_count(type: String) -> void:
 	enemies_in_stage = enemies_in_stage - 1
 	Events.emit_signal('add_cash', type)
-#	add_cash(type)
 	if enemies_in_stage == 0:
 		timer.connect('timeout', self, 'all_enemies_destroyed')
 		timer.set_one_shot(true)
 		timer.set_wait_time(3.0)
 		timer.start()
-		print('Timer run')
 
 
 func all_enemies_destroyed() -> void:
