@@ -83,8 +83,8 @@ func create_tower_range(tower_type: String) -> Sprite:
 ## Game Control Functions
 ##
 func _on_PausePlay_pressed() -> void:
-	if get_parent().build_mode:
-		get_parent().cancel_build_mode()
+	if get_parent().get_node('TurretManager').build_mode:
+		get_parent().get_node('TurretManager').cancel_build_mode()
 	if get_tree().is_paused():
 		get_tree().paused = false
 	elif get_parent().get_node('EnemyManager').current_wave == 0:
@@ -94,8 +94,8 @@ func _on_PausePlay_pressed() -> void:
 
 
 func _on_SpeedUp_pressed() -> void:
-	if get_parent().build_mode:
-		get_parent().cancel_build_mode()
+	if get_parent().get_node('TurretManager').build_mode:
+		get_parent().get_node('TurretManager').cancel_build_mode()
 	if Engine.get_time_scale() == 2.0:
 		Engine.set_time_scale(1.0)
 	else:
