@@ -87,11 +87,7 @@ func on_upgrade_turret(current_turret: Node2D) -> void:
 func get_upgrade_cost(current_turret: Node2D) -> int:
 	var new_turret_level = int(current_turret.type[-1])
 	new_turret_level += 1
-	print(new_turret_level)
-	print(current_turret.type.split('T'))
 	var substring = current_turret.type.split('T')[0]
 	var new_turret_type = substring + 'T' + str(new_turret_level)
-	print(new_turret_type)
 	var cost = GameData.tower_data[new_turret_type]['cost']
-	print(cost)
 	return cost
