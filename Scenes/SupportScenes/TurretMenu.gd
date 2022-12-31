@@ -5,7 +5,10 @@ enum PopupIds {
 	MANUAL_AIM_TURRET,
 }
 
-onready var _pm = $PopupMenu
+onready var _pm: PopupMenu = $PopupMenu
+onready var time_pressed: int = 0
+onready var time_last_pressed: int = 101
+onready var time_between_presses: int = 0
 
 
 
@@ -16,10 +19,15 @@ func _ready():
 
 
 func _on_PopupMenu_id_pressed(id):
-#	print_debug(Time.get_ticks_msec())
-	var current_turret = get_node('../..')
-	match id:
-		PopupIds.UPGRADE_TURRET:
-			Events.emit_signal('upgrade_turret', current_turret)
-		PopupIds.MANUAL_AIM_TURRET:
-			Events.emit_signal('manual_aim_turret', current_turret)
+	time_pressed = Time.get_ticks_msec()
+	if time_pressed - time_last_pressed < 100:
+		return
+	else:
+		var current_turret = get_node('../..')
+		time_pressed = Time.get_ticks_msec()
+		time_last_pressed = time_pressed
+		match id:
+			PopupIds.UPGRADE_TURRET:
+				Events.emit_signal('upgrade_turret', current_turret)
+			PopupIds.MANUAL_AIM_TURRET:
+				Events.emit_signal('manual_aim_turret', current_turret)
