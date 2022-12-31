@@ -55,7 +55,7 @@ func fire():
 	elif category == 'Missile':
 		fire_missile()
 	enemy_location.on_hit(GameData.tower_data[type]['damage'], GameData.tower_data[type]['category'])
-	print(GameData.tower_data[type]['damage'])
+#	print(GameData.tower_data[type]['damage'])
 	timer.start()
 
 
