@@ -1,3 +1,4 @@
+# warning-ignore-all:return_value_discarded
 extends Node2D
 
 enum PopupIds {
@@ -8,7 +9,6 @@ enum PopupIds {
 onready var _pm: PopupMenu = $PopupMenu
 onready var time_pressed: int = 0
 onready var time_last_pressed: int = 101
-onready var time_between_presses: int = 0
 
 
 

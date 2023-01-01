@@ -83,6 +83,7 @@ func on_upgrade_turret(current_turret: Node2D) -> void:
 		new_turret.category = GameData.tower_data[new_turret.type]['category']
 		new_turret.position = current_tile
 		turret_node.add_child(new_turret)
+		Events.emit_signal('deduct_cash', new_turret.type)
 
 
 func get_upgrade_cost(current_turret: Node2D) -> int:
