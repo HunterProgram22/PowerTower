@@ -18,6 +18,7 @@ onready var missile_button: Node = get_node('HUD/BuildBar/Missile')
 func _ready() -> void:
 	set_money()
 	set_buttons()
+	set_ui()
 	connect_signals()
 
 
@@ -38,6 +39,12 @@ func set_buttons() -> void:
 
 func set_money() -> void:
 	current_money.text = str(money)
+
+
+func set_ui() -> void:
+	var total_waves = get_parent().get_node('EnemyManager').wave_data.size()
+	$HUD/InfoBar/H/TotalWaves.text = str(total_waves)
+	print(total_waves)
 
 
 func set_tower_preview(tower_type: String, mouse_position: Vector2) -> void:
