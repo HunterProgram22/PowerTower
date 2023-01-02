@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func connect_signals():
 	Events.connect('enemy_destroyed', self, 'update_enemy_count')
+	Events.connect('enemy_off_map', self, 'update_enemy_count_nocash')
 
 
 func get_total_enemies() -> int:
@@ -65,6 +66,10 @@ func update_enemy_count(type: String) -> void:
 		timer.set_one_shot(true)
 		timer.set_wait_time(3.0)
 		timer.start()
+
+
+func update_enemy_count_nocash() -> void:
+	enemies_in_stage = enemies_in_stage - 1
 
 
 func all_enemies_destroyed() -> void:

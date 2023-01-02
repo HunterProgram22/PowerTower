@@ -16,6 +16,7 @@ signal add_cash(type)
 signal deduct_cash(tower_type)
 
 signal enemy_destroyed(type)
+signal enemy_off_map
 signal base_damage(base_damage)
 
 signal upgrade_turret(current_turret)

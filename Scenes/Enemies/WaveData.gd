@@ -15,12 +15,12 @@ const TWO_MASTER_S: Array = [[MT, S], [MT, S]]
 var wave_data = {
 	'Map1':
 	[
-		TWO_MASTER_S,
-		THREE_RED_F,
-		[[BT, M], [BT, S], [BT, M], [BT, M],],
 		FIVE_BLUE_M,
+		[[BT, M], [BT, S], [BT, M], [BT, M],],
+		THREE_RED_F,
 		[[BT, M], [RT, S], [RT, M]],
 		[[BT, M], [RT, M], [RT, M], [MT, M],],
+		TWO_MASTER_S,
 	],
 	'Map2':
 	[

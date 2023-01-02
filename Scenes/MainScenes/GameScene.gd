@@ -52,6 +52,7 @@ func deduct_cash(type: String) -> void:
 
 
 func on_base_damage(damage: int) -> void:
+	Events.emit_signal('enemy_off_map')
 	base_health -= damage
 	if base_health <= 0:
 		Events.emit_signal('game_finished')
