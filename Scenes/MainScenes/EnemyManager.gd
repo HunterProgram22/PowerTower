@@ -3,12 +3,10 @@ extends Node2D
 
 var map_name: String
 var current_wave_count: int = 0
-var enemies_in_wave: int = 0
 var enemies_in_stage: int = 0
 var wave_data: Array = []
 
 onready var timer: Timer = $Timer
-onready var enemy_create_timer: Timer = $EnemyCreateTimer
 onready var map: Node2D = get_parent().map
 onready var i = 0
 onready var wave
@@ -34,35 +32,37 @@ func get_total_enemies() -> int:
 
 
 func start_next_wave() -> void:
-	var next_wave = retrieve_wave()
-	spawn_enemies(next_wave)
+	var _next_wave = retrieve_wave()
+	current_wave_count += 1
+	spawn_enemies(_next_wave)
 
 
 func retrieve_wave() -> Array:
-	wave = wave_data[current_wave_count]
-	current_wave_count += 1
-	enemies_in_wave = wave['wave_count']
-	return wave
+	return wave_data[current_wave_count]
 
 
 func spawn_enemies(current_wave: Dictionary) -> void:
 	var wave_timer = Timer.new()
 	add_child(wave_timer)
-	wave_timer.connect('timeout', self, '_next', [wave_timer])
+	wave_timer.connect('timeout', self, '_next', [current_wave, wave_timer])
 	wave_timer.set_wait_time(current_wave['wave_speed'])
 	wave_timer.set_one_shot(true)
 	wave_timer.start()
+	check_for_next_wave(current_wave)
 
+
+func check_for_next_wave(current_wave: Dictionary) -> void:
 	if current_wave_count < wave_data.size():
-		yield(get_tree().create_timer(10.0), 'timeout')  # Padding between waves
+		var wave_padding = (current_wave['wave_count'] * current_wave['wave_speed']) + 3.0
+		yield(get_tree().create_timer(wave_padding), 'timeout')
 		i = 0
 		start_next_wave()
 		get_parent().get_node('UI').update_wave_ui()
 
 
-func _next(wave_timer):
-	var enemy_type = wave['wave_type']
-	var enemy_count = wave['wave_count']
+func _next(current_wave: Dictionary, wave_timer: Timer) -> void:
+	var enemy_type = current_wave['wave_type']
+	var enemy_count = current_wave['wave_count']
 	if wave_timer.is_stopped() and i < enemy_count:
 		var new_enemy = load('res://Scenes/Enemies/' + enemy_type + '.tscn').instance()
 		new_enemy.type = enemy_type
