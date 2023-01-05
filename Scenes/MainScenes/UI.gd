@@ -44,7 +44,6 @@ func set_money() -> void:
 func set_ui() -> void:
 	var total_waves = get_parent().get_node('EnemyManager').wave_data.size()
 	$HUD/InfoBar/H/TotalWaves.text = str(total_waves)
-	print(total_waves)
 
 
 func set_tower_preview(tower_type: String, mouse_position: Vector2) -> void:
@@ -94,7 +93,7 @@ func _on_PausePlay_pressed() -> void:
 		get_parent().get_node('TurretManager').cancel_build_mode()
 	if get_tree().is_paused():
 		get_tree().paused = false
-	elif get_parent().get_node('EnemyManager').current_wave == 0:
+	elif get_parent().get_node('EnemyManager').current_wave_count == 0:
 		get_parent().get_node('EnemyManager').start_next_wave()
 	else:
 		get_tree().paused = true
