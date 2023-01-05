@@ -30,6 +30,9 @@ script = ExtResource( 14 )
 
 [node name="Timer" type="Timer" parent="EnemyManager"]
 
+[node name="EnemyCreateTimer" type="Timer" parent="EnemyManager"]
+one_shot = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
 

@@ -2,13 +2,16 @@
 extends Node2D
 
 var map_name: String
-var current_wave: int = 0
+var current_wave_count: int = 0
 var enemies_in_wave: int = 0
 var enemies_in_stage: int = 0
 var wave_data: Array = []
 
 onready var timer: Timer = $Timer
+onready var enemy_create_timer: Timer = $EnemyCreateTimer
 onready var map: Node2D = get_parent().map
+onready var i = 0
+onready var wave
 
 
 
@@ -25,8 +28,8 @@ func connect_signals():
 
 
 func get_total_enemies() -> int:
-	for i in range(wave_data.size()):
-		enemies_in_stage += wave_data[i].size()
+	for x in range(wave_data.size()):
+		enemies_in_stage += wave_data[x]['wave_count']
 	return enemies_in_stage
 
 
@@ -36,26 +39,36 @@ func start_next_wave() -> void:
 
 
 func retrieve_wave() -> Array:
-	var wave = wave_data[current_wave]
-	current_wave += 1
-	enemies_in_wave = wave.size()
+	wave = wave_data[current_wave_count]
+	current_wave_count += 1
+	enemies_in_wave = wave['wave_count']
 	return wave
 
 
-func spawn_enemies(wave: Array) -> void:
-	"""The wave Array contains a list of enemies.
+func spawn_enemies(current_wave: Dictionary) -> void:
+	var wave_timer = Timer.new()
+	add_child(wave_timer)
+	wave_timer.connect('timeout', self, '_next', [wave_timer])
+	wave_timer.set_wait_time(current_wave['wave_speed'])
+	wave_timer.set_one_shot(true)
+	wave_timer.start()
 
-	Each enemy in the list is in the format ('UnitName'[str], DelayTime[float]).
-	"""
-	for enemy_data in wave:
-		var new_enemy = load('res://Scenes/Enemies/' + enemy_data[0] + '.tscn').instance()
-		new_enemy.type = enemy_data[0]
-		get_parent().get_node('Map/Path').add_child(new_enemy, true)
-		yield(get_tree().create_timer(enemy_data[1]), 'timeout')  # Padding between enemies
-	if current_wave < wave_data.size():
-		yield(get_tree().create_timer(2.0), 'timeout')  # Padding between waves
+	if current_wave_count < wave_data.size():
+		yield(get_tree().create_timer(10.0), 'timeout')  # Padding between waves
+		i = 0
 		start_next_wave()
 		get_parent().get_node('UI').update_wave_ui()
+
+
+func _next(wave_timer):
+	var enemy_type = wave['wave_type']
+	var enemy_count = wave['wave_count']
+	if wave_timer.is_stopped() and i < enemy_count:
+		var new_enemy = load('res://Scenes/Enemies/' + enemy_type + '.tscn').instance()
+		new_enemy.type = enemy_type
+		get_parent().get_node('Map/Path').add_child(new_enemy, true)
+		i += 1
+		wave_timer.start()
 
 
 func update_enemy_count(type: String) -> void:
